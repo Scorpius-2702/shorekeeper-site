@@ -16,3 +16,7 @@ h1{
 nav a {
     text-decoration: none;
 }
+
+#about {
+    background-color: aqua;
+}
