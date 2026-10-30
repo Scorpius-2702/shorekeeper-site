@@ -1,23 +1,26 @@
-/*Chỉnh phông chữ và màu nền của toàn bộ trang*/
+.screen{
+    min-height: 100vh;
+}
+
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background-color: whitesmoke;
 }
 
-/*Chỉnh màu mọi tiêu đề cấp độ h1*/
 h1{
     color: rgb(146, 193, 241);
 }
 
-/*Tác động đến câu chào phần đầu trang*/
 .tagline {
     font-size: 32px;
     color: rgb(141, 190, 231);
 
 }
 
-/*Bỏ gạch chân link trong menu*/
 nav a {
     text-decoration: none;
 }
 
+figcaption{
+    font-style: italic;
+}
