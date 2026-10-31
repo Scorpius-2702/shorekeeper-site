@@ -1,5 +1,9 @@
+*{
+    box-sizing: border-box;
+}
 .screen{
     min-height: 100vh;
+    padding: 60px 40px;
 }
 
 body {
@@ -14,13 +18,43 @@ h1{
 .tagline {
     font-size: 32px;
     color: rgb(141, 190, 231);
-
+   
 }
 
+figcaption {
+    font-size: italic;
+}
+
+.gallery-list {
+    max-width: 640px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.gallery-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid silver;
+}
+
+.tag{
+    font-size: 13px;
+    padding: 2px 10px;
+    margin-right: 12px;
+    border: 1px solid gray;
+    border-radius: 12px;
+}
+
+.more{
+    display: inline-block;
+    margin-top: 24px;
+    padding: 8px 28px;
+    border: 1px solid gray;
+    color: black;
+    text-decoration: none;
+
+}
 nav a {
     text-decoration: none;
 }
 
-figcaption{
-    font-style: italic;
-}
