@@ -3,7 +3,7 @@
 }
 .screen{
     min-height: 100vh;
-    padding: 60px 40px;
+    padding: 4rem 5vw;
 }
 
 body {
@@ -24,9 +24,14 @@ h1{
 figcaption {
     font-size: italic;
 }
+.home-art{
+    width: 100%;
+    height: 55vh;
+    object-fit: cover;
+}
 
 .gallery-list {
-    max-width: 640px;
+    max-width: 40rem;
     margin: 0;
     padding: 0;
     list-style-type: none;
