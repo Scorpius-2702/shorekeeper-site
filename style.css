@@ -16,8 +16,9 @@
     --color-accent: #d4b06a;
     --color-accent-border: rgb(212 176 106/0.6);
     --color-accent-line: rgb(212 176 106/0.3);
-    --font-body: "Barlow", "Segue UI", Arial, sans-serif;
+    --font-body: "Barlow", "Segoe UI", Arial, sans-serif;
     --font-quote: "Space Mono", monospace;
+    --space-side: 5vw;
 
 }
 
@@ -30,6 +31,10 @@ body {
 
 a{
     color: var(--color-text);
+}
+
+header{
+    padding: 1.5rem var(--space-side);
 }
 
 .logo{
@@ -57,7 +62,7 @@ nav a {
 
 .screen{
     min-height: 100vh;
-    padding: 4rem 5vw;
+    padding: 4rem var(--space-side);
 }
 
 figcaption {
