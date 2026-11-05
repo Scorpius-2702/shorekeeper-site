@@ -35,6 +35,11 @@ a{
 
 header{
     padding: 1.5rem var(--space-side);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
+
 }
 
 .logo{
@@ -53,11 +58,24 @@ h2{
     font-size: 2rem;
     color: var(--color-accent);
 }
+nav{
+    margin-left: auto; 
+    margin-right: auto;
+}
 
 nav a {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 .screen{
@@ -94,6 +112,8 @@ figcaption {
 .gallery-list li {
     padding: 14px 0;
     border-bottom: 1px solid var(--color-accent-line);
+    display: flex;
+    align-items: center;
 }
 
 .tag{
