@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+html{
+    font-size: 110%;
+}
+
 @font-face {
     font-family: "Space Mono";
     src: url("fonts/SpaceMono-Regular.ttf")format("truetype");
@@ -59,7 +63,7 @@ h2{
     color: var(--color-accent);
 }
 nav{
-    margin-left: auto; 
+    margin-left: 13rem; 
     margin-right: auto;
 }
 
