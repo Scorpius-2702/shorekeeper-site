@@ -4,6 +4,7 @@
 
 html{
     font-size: 110%;
+    scroll-padding-top: 4rem;
 }
 
 @font-face {
@@ -23,6 +24,7 @@ html{
     --font-body: "Barlow", "Segoe UI", Arial, sans-serif;
     --font-quote: "Space Mono", monospace;
     --space-side: 5vw;
+    --color-bg-shade: rgb(24 23 21/0.7);
 
 }
 
@@ -43,7 +45,10 @@ header{
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem 3rem;
-
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-bg-shade);
 }
 
 .logo{
@@ -103,7 +108,21 @@ figcaption {
     width: 100%;
     height: 95vh;
     object-fit: cover;
-    object-position: 72% center; /* giữ nhân vật trong khung khi màn hình hẹp */
+    object-position: 72% center; 
+    display: block;
+}
+
+.home-caption{
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+    padding: 0 1.5rem;
+    background-color: var(--color-bg-shade);
+    border-radius: 12px;
+}
+
+.home-hero{
+    position: relative;
 }
 
 .gallery-layout{
@@ -151,3 +170,4 @@ figcaption {
     text-decoration: none;
 
 }
+
