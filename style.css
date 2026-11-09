@@ -174,3 +174,111 @@ figcaption {
 
 }
 
+
+
+/* Skills */
+
+.skills{
+    position: relative;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 2rem 3rem;
+    align-items: center;
+}
+
+.skill-backdrop,
+.skill-video,
+.skill-shade{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.skill-backdrop,
+.skill-video{
+    object-fit: cover;
+    z-index: -2;
+}
+
+.skill-shade{
+    background-color: var(--color-bg-shade);
+    z-index: -1;
+}
+
+/* Ẩn mặc định, hiện khi section có class is-open */
+.skill-video,
+.skill-shade,
+.skill-hero,
+.skill-details{
+    display: none;
+}
+
+.skills.is-open .skill-video,
+.skills.is-open .skill-shade,
+.skills.is-open .skill-hero,
+.skills.is-open .skill-details{
+    display: block;
+}
+
+
+.skill-cards {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.skill-card {
+  position: relative;
+  height: 60vh;
+  border: 1px solid var(--color-accent-line);
+}
+ 
+.skill-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ 
+.card-name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4rem;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-shade);
+  color: var(--color-accent);
+  text-align: center;
+}
+ 
+.skill-card.is-active {
+  border-color: var(--color-accent);
+}
+ 
+.skill-type {
+  margin: 0;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+}
+ 
+
+.skill-name {
+  margin: 0.5rem 0 1rem;
+  font-size: 3rem;
+}
+ 
+.skill-details h4 {
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
