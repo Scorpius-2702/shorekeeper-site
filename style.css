@@ -25,7 +25,7 @@ html{
     --font-quote: "Space Mono", monospace;
     --space-side: 5vw;
     --color-bg-shade: rgb(24 23 21/0.7);
-
+    --color-ice: #8fd3ff;
 }
 
 body {
@@ -105,24 +105,27 @@ figcaption {
 }
 
 .home-art{
-    width: 100%;
-    height: 95vh;
-    object-fit: cover;
-    object-position: 72% center; 
-    display: block;
-}
-
-.home-caption{
     position: absolute;
-    left: 2rem;
-    bottom: 2rem;
-    padding: 0 1.5rem;
-    background-color: var(--color-bg-shade);
-    border-radius: 12px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
 }
 
-.home-hero{
+.home-shade{
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-bg-shade);
+    z-index: -1;
+}
+
+#home{
     position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .gallery-layout{
