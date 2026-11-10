@@ -319,3 +319,66 @@ figcaption {
 .skills.is-open .skill-shade {
   display: block;
 }
+
+@media (min-width: 1100px) {
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+ 
+  .logo {
+    justify-self: start;
+  }
+}
+ 
+ 
+@media (max-width: 1000px) {
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem var(--space-side);
+  }
+ 
+  nav ul {
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+  }
+ 
+  .skills {
+    grid-template-columns: minmax(0, 1fr);
+  }
+ 
+  .skill-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+ 
+  .skill-card {
+    height: 12rem;
+  }
+ 
+  .skills.is-open {
+    grid-template-columns: minmax(0, 1fr);
+  }
+ 
+  .skills.is-open .skill-hero,
+  .skills.is-open .skill-cards {
+    grid-row: 1;
+    grid-column: 1;
+  }
+ 
+  .skills.is-open .skill-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-self: end;
+    margin-bottom: 2rem;
+  }
+ 
+  .skills.is-open .card-name {
+    height: 2.25rem;
+  }
+ 
+  figure,
+  blockquote {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
