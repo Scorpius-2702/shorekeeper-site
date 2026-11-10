@@ -178,51 +178,47 @@ figcaption {
 
 /* Skills */
 
-.skills{
-    position: relative;
-    z-index: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-    gap: 2rem 3rem;
-    align-items: center;
+.skills {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 2rem 3rem;
+  align-items: center;
 }
-
-.skill-backdrop,
-.skill-video,
-.skill-shade{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.skill-backdrop,
-.skill-video{
+ 
+.skill-backdrop{
     object-fit: cover;
-    z-index: -2;
+    filter: blur(8px) brightness(0.5);
+    z-index: -3;
 }
 
-.skill-shade{
-    background-color: var(--color-bg-shade);
-    z-index: -1;
-}
-
-/* Ẩn mặc định, hiện khi section có class is-open */
+.skill-backdrop,
 .skill-video,
-.skill-shade,
+.skill-shade {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+ 
+.skill-video {
+  object-fit: cover;
+  z-index: -2;
+}
+ 
+.skill-shade {
+  background-color: var(--color-bg-shade);
+  z-index: -1;
+}
+ 
 .skill-hero,
-.skill-details{
-    display: none;
+.skill-details {
+  display: none;
 }
-
-.skills.is-open .skill-video,
-.skills.is-open .skill-shade,
-.skills.is-open .skill-hero,
-.skills.is-open .skill-details{
-    display: block;
-}
-
-
+ 
 .skill-cards {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -231,7 +227,7 @@ figcaption {
   padding: 0;
   list-style-type: none;
 }
-
+ 
 .skill-card {
   position: relative;
   height: 60vh;
@@ -271,14 +267,55 @@ figcaption {
   letter-spacing: 0.15rem;
 }
  
-
 .skill-name {
   margin: 0.5rem 0 1rem;
   font-size: 3rem;
 }
  
-.skill-details h4 {
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
+
+
+.skills.is-open {
+    grid-template-columns: minmax(0, 1fr) 9rem;
+    grid-template-rows: 100vh auto;
+    padding-top: 0;
+}
+
+.skills.is-open .skills-intro{
+    display: none;
+}
+
+.skills.is-open .skill-video,
+.skills.is-open .skill-shade {
+  display: block;
+}
+ 
+.skills.is-open .skill-hero {
+  display: block;
+  max-width: 32rem;
+}
+ 
+.skills.is-open .skill-cards {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+ 
+.skills.is-open .skill-card {
+  height: 4.5rem;
+}
+ 
+.skills.is-open .card-name {
+  height: 1.5rem;
+  font-size: 0.8rem;
+}
+ 
+.skills.is-open .skill-details {
+  display: block;
+  grid-column: 1 / -1;
+  max-width: 40rem;
+}
+
+.skills.is-open .skill-backdrop,
+.skills.is-open .skill-video,
+.skills.is-open .skill-shade {
+  display: block;
 }
