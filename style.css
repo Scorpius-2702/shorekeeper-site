@@ -124,6 +124,14 @@ header{
     text-decoration: none;
 }
 
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  margin-left: var(--space-1);
+}
+
+
 h2{
     color: var(--color-accent);
 }
