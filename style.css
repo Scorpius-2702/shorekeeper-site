@@ -15,7 +15,7 @@ html{
 }
 
 :root{
-    --color-bg: #181715;
+    --color-bg: #0d121c;
     --color-text: #e8e2d4;
     --color-muted: #a19a8b;
     --color-accent: #d4b06a;
@@ -46,6 +46,10 @@ body {
     font-size: var(--text-base);
     line-height: 1.6;
 
+}
+
+main p{
+    max-width: 55ch;
 }
 
 a{
