@@ -4,7 +4,7 @@
 
 html{
     font-size: 110%;
-    scroll-padding-top: 4rem;
+    scroll-padding-top: var(--space-7);
 }
 
 @font-face {
@@ -29,6 +29,7 @@ html{
     --color-shade-dark: rgb(13 18 28 / 0.8);
     --color-shade-clear: rgb(13 18 28 / 0.1);
     --gradient-shade: linear-gradient(to right, var(--color-shade-dark) 45%, var(--color-shade-clear) 80%);
+    
     --text-sm: 0.8rem;
     --text-base: 1rem;
     --text-md: 1.25rem;
@@ -36,6 +37,7 @@ html{
     --text-xl: 1.953rem;
     --text-2xl: 2.441rem;
     --text-3xl: 3.052rem;
+    
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -45,6 +47,12 @@ html{
     --space-7: 3rem;
     --space-8: 4rem;
 
+    --duration-1: 150ms;
+    --duration-2: 200ms;
+    --duration-3: 250ms;
+    --duration-4: 400ms;
+
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 p,
@@ -152,6 +160,24 @@ nav a {
     letter-spacing: 0.1rem;
 }
 
+nav a::after{
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: calc(-1 * var(--space-1));
+    height: 1px;
+    background-color: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-1) var(--ease-standard);
+}
+
+nav a:hover::after,
+nav a:focus-visible::after{
+    transform: scaleX(1);
+}
+
 nav ul {
     display: flex;
     flex-wrap: wrap;
@@ -221,10 +247,37 @@ figcaption {
 }
 
 .gallery-list li {
+    position: relative;
     padding: var(--space-3) 0;
     border-bottom: 1px solid var(--color-accent-line);
     display: flex;
     align-items: center;
+}
+
+.gallery-list li::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background-color: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-2) var(--ease-standard);
+}
+
+.item-title{
+    display: inline-block;
+    transition: transform var(--duration-2) var(--ease-standard);
+}
+
+.gallery-list li:hover::after{
+    transform: scaleX(1);
+}
+
+.gallery-list li:hover .item-title{
+    transform: translateX(6px);
 }
 
 .tag{
@@ -240,25 +293,46 @@ figcaption {
 }
 
 .more{
+    position: relative;
+    z-index: 0;
     display: inline-block;
     margin-top: var(--space-5);
     padding: var(--space-2) var(--space-6);
     border: 1px solid var(--color-accent);
     text-decoration: none;
-
+    transition: color var(--duration-2) var(--ease-standard);
 }
 
+.more::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-2) var(--ease-standard);
+}
 
+.more:hover,
+.more:focus-visible{
+    color: var(--color-bg);
+}
+
+.more:hover::before,
+.more:focus-visible::before{
+    transform: scaleX(1);
+}
 
 /* Skills */
 
 .skills {
-  position: relative;
-  z-index: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: var(--space-6) var(--space-7);
-  align-items: center;
+    position: relative;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--space-6) var(--space-7);
+    align-items: center;
 }
  
 .skill-backdrop{
@@ -279,33 +353,35 @@ figcaption {
 }
  
 .skill-video {
-  object-fit: cover;
-  z-index: -2;
+    object-fit: cover;
+    z-index: -2;
 }
  
 .skill-shade {
-  background-image: var(--gradient-shade);
-  z-index: -1;
+    background-image: var(--gradient-shade);
+    z-index: -1;
 }
  
 .skill-hero,
 .skill-details {
-  display: none;
+    display: none;
 }
  
 .skill-cards {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: var(--space-3);
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+    display: flex;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
  
 .skill-card {
-  position: relative;
-  height: 60vh;
-  border: 1px solid var(--color-accent-line);
+    position: relative;
+    flex: 1 1 0;
+    height: 60vh;
+    overflow: hidden;
+    border: 1px solid var(--color-accent-line);
+    transition: flex-grow var(--duration-3) var(--ease-standard), border-color var(--duration-1) var(--ease-standard);
 }
  
 .skill-card img {
@@ -313,8 +389,27 @@ figcaption {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: flex-grow var(--duration-4) var(--ease-standard), opacity var(--duration-3) var(--ease-standard);
+
 }
  
+.skill-card:hover {
+  flex-grow: 1.41;
+  border-color: var(--color-accent);
+}
+
+.skill-card:hover img {
+  transform: scale(1.12);
+}
+
+.skill-cards:hover img {
+  opacity: 0.5;
+}
+
+.skill-cards .skill-card:hover img {
+  opacity: 1;
+}
+
 .card-name {
   position: absolute;
   left: 0;
@@ -328,6 +423,7 @@ figcaption {
   background-image: var(--color-shade-dark);
   color: var(--color-accent);
   text-align: center;
+  line-height: 1.2;
 }
  
 .skill-card.is-active {
@@ -369,7 +465,8 @@ figcaption {
 }
  
 .skills.is-open .skill-cards {
-  grid-template-columns: 1fr;
+  flex-direction: column;
+  height: 30rem;
   gap: var(--space-2);
 }
  
@@ -385,7 +482,7 @@ figcaption {
 .skills.is-open .skill-details {
   display: block;
   grid-column: 1 / -1;
-  max-width: 40rem;
+  max-width: 55ch;
 }
 
 .skills.is-open .skill-backdrop,
