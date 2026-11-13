@@ -51,9 +51,17 @@ html{
     --duration-2: 200ms;
     --duration-3: 250ms;
     --duration-4: 400ms;
+    --duration-5: 700ms;
+    --duration-6: 1000ms;
+
+    --delay-step: 80ms;
 
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+
+
 }
+
 
 p,
 ul {
@@ -155,6 +163,7 @@ nav{
 }
 
 nav a {
+    position: relative;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
@@ -164,7 +173,7 @@ nav a::after{
     position: absolute;
     content: "";
     left: 0;
-    right: 0;
+    right: 0.1rem;
     bottom: calc(-1 * var(--space-1));
     height: 1px;
     background-color: var(--color-accent);
@@ -204,13 +213,51 @@ figcaption {
     letter-spacing: 0.2rem;
 }
 
-.home-art{
+#home {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home-art {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: -2;
+    animation: art-in var(--duration-6) var(--ease-decelerate) both;
+}
+
+.home-caption h1 {
+    animation: loang-wide var(--duration-5) var(--ease-decelerate) var(--delay-step) both;
+}
+
+@keyframes loang {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateX(24px);
+  }
+}
+
+@keyframes loang-wide {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateX(-24px);
+    letter-spacing: 0.3rem;
+  }
+}
+
+@keyframes art-in {
+    from {
+      opacity: 0;
+      transform: scale(1.08);
+    } 
 }
 
 .home-shade{
@@ -220,13 +267,6 @@ figcaption {
     z-index: -1;
 }
 
-#home{
-    position: relative;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
 .gallery-layout{
     display: grid;
