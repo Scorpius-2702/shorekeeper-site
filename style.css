@@ -4,7 +4,7 @@
 
 html{
     font-size: 110%;
-    scroll-padding-top: var(--space-7);
+    scroll-padding-top: var(--space-8);
 }
 
 @font-face {
@@ -37,7 +37,7 @@ html{
     --text-xl: 1.953rem;
     --text-2xl: 2.441rem;
     --text-3xl: 3.052rem;
-    
+    --text-display: clamp(var(--text-3xl), 10vw, 5.5rem);
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -52,13 +52,13 @@ html{
     --duration-3: 250ms;
     --duration-4: 400ms;
     --duration-5: 700ms;
-    --duration-6: 1000ms;
-
+    --duration-6: 1600ms;
+    --duration-7: 1800ms;
     --delay-step: 80ms;
 
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
-
+    --ease-accelerate: cubic-bezier(0.4, 0, 0, 1);
 
 }
 
@@ -84,7 +84,7 @@ main p{
     max-width: 55ch;
 }
 
-a{
+a {
     color: var(--color-text);
 }
 
@@ -96,9 +96,12 @@ h3,
       line-height: 1.15;
   }
 
-h1{
-  font-size: clamp(var(--text-xl), 4vw, var(--text-3xl));
+h1 {
+  font-size: var(--text-display);
+  text-transform: uppercase;
+  line-height: 0.9;
 }
+
 
 h3{
   font-size: var(--text-md);
@@ -121,17 +124,21 @@ h4 {
 }
 
 
-header{
-    padding: var(--space-5) var(--space-4) var(--space-7);
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-3) var(--space-6);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: var(--color-bg-shade);
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: var(--space-4) var(--space-side);
+  background-image: linear-gradient(to bottom, rgb(13 18 28 / 0.7), transparent);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap
 }
+
+
 
 .logo{
     font-weight: 700;
@@ -154,9 +161,16 @@ h2{
 
 
 .tagline {
-    font-size: 2rem;
-    color: var(--color-accent);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-accent);
+  animation: loang var(--duration-5) var(--ease-decelerate) both;
 }
+
+
 nav{
     margin-left: 13rem; 
     margin-right: auto;
@@ -236,6 +250,55 @@ figcaption {
     animation: loang-wide var(--duration-5) var(--ease-decelerate) var(--delay-step) both;
 }
 
+.home-line {
+    display: block;
+    width: 6rem;
+    height: 1px;
+    margin-top: var(--space-6);
+    background-color: var(--color-accent);
+    animation: loang var(--duration-5) var(--ease-decelerate) calc(2 * var(--delay-step)) both;
+
+}
+
+.scroll-cue {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--space-6);
+    font-size: var(--text-sm);
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-muted);
+    animation: loang var(--duration-5) var(--ease-decelerate) calc(4 * var(--delay-step)) both;
+
+}
+
+.scroll-line {
+    position: relative;
+    display: block;
+    width: 1px;
+    height: 3rem;
+    margin: var(--space-2) auto 0;
+    overflow: hidden;
+    background-color: var(--color-accent-line);
+}
+
+.scroll-line::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1rem;
+    background-color: var(--color-accent);
+    animation: cue-drop var(--duration-7) var(--ease-standard) infinite;
+}
+.home-caption .tagline {
+    animation: loang var(--duration-5) var(--ease-decelerate) both;
+}
+
+
 @keyframes loang {
   from {
     opacity: 0;
@@ -259,6 +322,49 @@ figcaption {
       transform: scale(1.08);
     } 
 }
+
+@keyframes cue-drop {
+    0% {
+      transform: translateY(-100%);
+    } 
+    70% {
+      transform: translateY(300%);
+    }
+    100% {
+      transform: translateY(300%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-1: 0ms;
+    --duration-2: 0ms;
+    --duration-3: 0ms;
+    --duration-4: 0ms;
+    --duration-5: 150ms;
+    --duration-6: 150ms;
+    --delay-step: 0ms;
+  }
+ 
+  .tagline,
+  .home-caption h1,
+  .home-line,
+  .scroll-cue,
+  .home-art {
+    animation-name: fade-in;
+  }
+ 
+  .scroll-line::after {
+    animation: none;
+  }
+}
+ 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 
 .home-shade{
     position: absolute;
