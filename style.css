@@ -135,7 +135,7 @@ header {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap
+  gap: var(--space-4) var(--space-7);
 }
 
 
@@ -172,8 +172,8 @@ h2{
 
 
 nav{
-    margin-left: 13rem; 
-    margin-right: auto;
+    margin-left: auto;
+
 }
 
 nav a {
@@ -645,6 +645,10 @@ figcaption {
  
   .logo {
     justify-self: start;
+  }
+
+  nav {
+    margin: 0;
   }
 }
  
