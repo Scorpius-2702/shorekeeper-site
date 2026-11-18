@@ -566,8 +566,8 @@ figcaption {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: var(--color-shade-dark);
-  color: var(--color-accent);
+  background-color: var(--color-shade-dark);
+  color: var(--color-text);
   text-align: center;
   line-height: 1.2;
 }
@@ -707,5 +707,62 @@ figcaption {
   blockquote {
     margin-left: 0;
     margin-right: 0;
+  }
+}
+
+:root {
+  --color-shade-solid: rgb(13 18 28 / 0.94);
+}
+ 
+.skill-card {
+  background-color: #111a29;
+  background-image: radial-gradient(ellipse 140% 55% at 50% 100%, rgb(110 160 225 / 0.28), transparent 70%);
+}
+ 
+.skill-card img {
+  object-fit: contain;
+  padding: 0 14% 4rem;
+}
+ 
+.skills.is-open .skill-card img {
+  padding: 0.35rem 0 1.65rem;
+}
+ 
+.card-name {
+  background-color: var(--color-shade-solid);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+ 
+.card-name::before {
+  content: "";
+  position: absolute;
+  top: 0.55rem;
+  left: 50%;
+  width: 1.25rem;
+  height: 1px;
+  margin-left: -0.625rem;
+  background-color: var(--color-accent);
+}
+ 
+.skill-card.is-active .card-name {
+  color: var(--color-accent);
+}
+ 
+.skills.is-open .card-name {
+  font-size: 0.68rem;
+}
+ 
+.skills.is-open .card-name::before {
+  display: none;
+}
+ 
+@media (max-width: 1000px) {
+  .skills.is-open .skill-card img {
+    padding: 0.35rem 0 2.4rem;
   }
 }
