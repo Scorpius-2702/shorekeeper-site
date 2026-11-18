@@ -19,13 +19,13 @@ function twoDigit (n){
     return `${n}`;
 }
 
-for (let i = 0; i <skillTypes.length; i++ ){
-    console.log(`${twoDigit(i+1)} / ${twoDigit(skillCount)} ${skillTypes(i)}`);
+for (let i = 0; i < skillTypes.length; i++) {
+    console.log(`${twoDigit(i + 1)} / ${twoDigit(skillCount)} ${skillTypes[i]}`);
 }
 
 let longest = '';
 for (const type of skillTypes) {
-    if (type.length < longest.length){
+    if (type.length > longest.length) {
         longest = type;
     }
 }
@@ -37,4 +37,26 @@ if (reduceMotion) {
   console.log(`${siteName}: reduced motion is on`);
 } else {
   console.log(`${siteName}: reduced motion is off`);
+}
+
+const cards = document.querySelectorAll ('.skill-card');
+console.log(`Found ${cards.length} skill cards`);
+
+for (let i = 0; i < cards.length; i++) {
+    const num = document.createElement('span');
+    num.className = 'card-num';
+    num.textContent = twoDigit(i + 1);
+    num.setAttribute('aria-hidden', 'true');
+    cards[i].prepend(num);
+}
+
+const screens = document.querySelectorAll('.screen');
+for (let i = 0; i < screens.length; i++) {
+    const heading = screens[i].querySelector('h2');
+    if (heading !== null) {
+        const label = document.createElement('p');
+        label.className = 'screen-num';
+        label.textContent = `${twoDigit(i + 1)} / ${twoDigit(screens.length)}`;
+        heading.before(label);
+    }
 }

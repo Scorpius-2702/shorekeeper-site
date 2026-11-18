@@ -159,6 +159,15 @@ h2{
     color: var(--color-accent);
 }
 
+.screen-num {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 
 .tagline {
   margin-bottom: var(--space-2);
@@ -571,7 +580,20 @@ figcaption {
   text-align: center;
   line-height: 1.2;
 }
- 
+
+.card-num {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 1;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  text-shadow: 0 0 2px var(--color-bg), 0 0 8px var(--color-bg);
+}
+
+
 .skill-card.is-active {
   border-color: var(--color-accent);
 }
@@ -625,6 +647,11 @@ figcaption {
   font-size: 0.8rem;
 }
  
+.skills.is-open .card-num {
+  display: none;
+}
+
+
 .skills.is-open .skill-details {
   display: block;
   grid-column: 1 / -1;
@@ -670,6 +697,7 @@ figcaption {
   }
  
   .skill-cards {
+    display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
  
@@ -691,6 +719,7 @@ figcaption {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-self: end;
     margin-bottom: 2rem;
+    height: auto;
   }
   
     .home-shade,
