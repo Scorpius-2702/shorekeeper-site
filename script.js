@@ -60,3 +60,37 @@ for (let i = 0; i < screens.length; i++) {
         heading.before(label);
     }
 }
+
+for (const card of cards) {
+    card.addEventListener('click', () => {
+        const name = card.querySelector('.card-name').textContent
+        console.log(`Clicked: ${name}`);
+    });
+}
+
+const navLinks = document.querySelectorAll('nav a');
+
+function updateCurrentLink() {
+    const line = window.innerHeight / 3;
+    let current = navLinks[0];
+    for (const link of navLinks){
+        const screen = document.querySelector(link.getAttribute('href'));
+        if (screen.getBoundingClientRect().top <= line){
+            current = link;
+        }
+    }
+    for (const link of navLinks) {
+        if (link === current) {
+            link.setAttribute('aria-current', 'location');
+        } else {
+            link.removeAttribute('aria-current');
+        }
+    }
+}
+
+updateCurrentLink();
+window.addEventListener('scroll', updateCurrentLink);
+
+document.addEventListener('keydown', (event) => {
+    console.log(`Key: ${event.key}`);
+});
