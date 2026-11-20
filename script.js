@@ -61,10 +61,20 @@ for (let i = 0; i < screens.length; i++) {
     }
 }
 
+const skillsScreen = document.querySelector('#skills');
+
+function openSkill (card) {
+    for (const other of cards) {
+        other.classList.remove('is-active');
+    }
+    card.classList.add('is-active');
+    skillsScreen.classList.add('is-open');
+    console.log(`Opened: ${card.querySelector('.card-name').textContent}`);
+}
+
 for (const card of cards) {
-    card.addEventListener('click', () => {
-        const name = card.querySelector('.card-name').textContent
-        console.log(`Clicked: ${name}`);
+    card.addEventListener(`click`, () => {
+        openSkill(card);
     });
 }
 

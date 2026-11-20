@@ -549,12 +549,14 @@ figcaption {
 
 }
  
-.skill-card:hover {
+.skill-card:hover,
+.skill-card:has(.card-button:focus-visible) {
   flex-grow: 1.41;
   border-color: var(--color-accent);
 }
 
-.skill-card:hover img {
+.skill-card:hover img,
+.skill-card.skill-card:has(.card-button:focus-visible){
   transform: scale(1.12);
 }
 
@@ -592,6 +594,27 @@ figcaption {
   letter-spacing: 0.1em;
   color: var(--color-text);
   text-shadow: 0 0 2px var(--color-bg), 0 0 8px var(--color-bg);
+}
+
+.card-button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+ 
+.card-button:focus-visible {
+  outline: none;
+}
+ 
+.skill-card:has(.card-button:focus-visible) {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
 }
 
 
