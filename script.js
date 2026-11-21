@@ -1,106 +1,116 @@
-console.log('script.js loaded');
-
-const siteName = 'Shorekeeper';
-const skillCount = 6;
-
-const skillTypes = [
-    'Normal Attack',
-    'Resonance Skill',
-    'Resonance Liberation',
-    'Forte Circuit',
-    'Intro Skill',
-    'Outro Skill',
-]
-
-function twoDigit (n){
-    if (n < 10) {
-        return `0${n}`;
-    }
-    return `${n}`;
+function twoDigits(n) {
+  if (n < 10) {
+    return `0${n}`;
+  }
+  return `${n}`;
 }
-
-for (let i = 0; i < skillTypes.length; i++) {
-    console.log(`${twoDigit(i + 1)} / ${twoDigit(skillCount)} ${skillTypes[i]}`);
-}
-
-let longest = '';
-for (const type of skillTypes) {
-    if (type.length > longest.length) {
-        longest = type;
-    }
-}
-console.log(`Longest card name: ${longest} (${longest.length} characters)`);
-
+ 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  
-if (reduceMotion) {
-  console.log(`${siteName}: reduced motion is on`);
-} else {
-  console.log(`${siteName}: reduced motion is off`);
-}
-
-const cards = document.querySelectorAll ('.skill-card');
-console.log(`Found ${cards.length} skill cards`);
-
-for (let i = 0; i < cards.length; i++) {
-    const num = document.createElement('span');
-    num.className = 'card-num';
-    num.textContent = twoDigit(i + 1);
-    num.setAttribute('aria-hidden', 'true');
-    cards[i].prepend(num);
-}
-
+ 
 const screens = document.querySelectorAll('.screen');
 for (let i = 0; i < screens.length; i++) {
-    const heading = screens[i].querySelector('h2');
-    if (heading !== null) {
-        const label = document.createElement('p');
-        label.className = 'screen-num';
-        label.textContent = `${twoDigit(i + 1)} / ${twoDigit(screens.length)}`;
-        heading.before(label);
-    }
+  const heading = screens[i].querySelector('h2');
+  if (heading !== null) {
+    const label = document.createElement('p');
+    label.className = 'screen-num';
+    label.textContent = `${twoDigits(i + 1)} / ${twoDigits(screens.length)}`;
+    heading.before(label);
+  }
 }
-
-const skillsScreen = document.querySelector('#skills');
-
-function openSkill (card) {
-    for (const other of cards) {
-        other.classList.remove('is-active');
-    }
-    card.classList.add('is-active');
-    skillsScreen.classList.add('is-open');
-    console.log(`Opened: ${card.querySelector('.card-name').textContent}`);
-}
-
-for (const card of cards) {
-    card.addEventListener(`click`, () => {
-        openSkill(card);
-    });
-}
-
+ 
+ 
 const navLinks = document.querySelectorAll('nav a');
-
+ 
 function updateCurrentLink() {
-    const line = window.innerHeight / 3;
-    let current = navLinks[0];
-    for (const link of navLinks){
-        const screen = document.querySelector(link.getAttribute('href'));
-        if (screen.getBoundingClientRect().top <= line){
-            current = link;
-        }
+  const line = window.innerHeight / 3;
+  let current = navLinks[0];
+  for (const link of navLinks) {
+    const screen = document.querySelector(link.getAttribute('href'));
+    if (screen.getBoundingClientRect().top <= line) {
+      current = link;
     }
-    for (const link of navLinks) {
-        if (link === current) {
-            link.setAttribute('aria-current', 'location');
-        } else {
-            link.removeAttribute('aria-current');
-        }
+  }
+  for (const link of navLinks) {
+    if (link === current) {
+      link.setAttribute('aria-current', 'location');
+    } else {
+      link.removeAttribute('aria-current');
     }
+  }
 }
-
+ 
 updateCurrentLink();
 window.addEventListener('scroll', updateCurrentLink);
-
-document.addEventListener('keydown', (event) => {
-    console.log(`Key: ${event.key}`);
-});
+ 
+ 
+const skillsScreen = document.querySelector('#skills');
+const cardList = document.querySelector('.skill-cards');
+const cards = [];
+ 
+let skillData = [];
+ 
+function buildCard(skill, index) {
+  const card = document.createElement('li');
+  card.className = 'skill-card';
+ 
+  const num = document.createElement('span');
+  num.className = 'card-num';
+  num.textContent = twoDigits(index + 1);
+  num.setAttribute('aria-hidden', 'true');
+ 
+  const button = document.createElement('button');
+  button.className = 'card-button';
+  button.type = 'button';
+ 
+  const image = document.createElement('img');
+  image.src = skill.image;
+  image.alt = '';
+ 
+  const name = document.createElement('span');
+  name.className = 'card-name';
+  name.textContent = skill.type;
+ 
+  button.append(image, name);
+  card.append(num, button);
+  card.addEventListener('click', () => {
+    openSkill(index);
+  });
+  return card;
+}
+ 
+function showSkill(skill) {
+  document.querySelector('.skill-type').textContent = skill.type;
+  document.querySelector('.skill-name').textContent = skill.name;
+  document.querySelector('.skill-short').textContent = skill.short;
+  document.querySelector('.skill-what').textContent = skill.what;
+ 
+  const related = document.querySelector('.skill-related');
+  related.textContent = '';
+  for (const text of skill.related) {
+    const item = document.createElement('li');
+    item.textContent = text;
+    related.append(item);
+  }
+}
+ 
+function openSkill(index) {
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('is-active', i === index);
+  }
+  skillsScreen.classList.add('is-open');
+  showSkill(skillData[index]);
+}
+ 
+async function loadSkills() {
+  const response = await fetch('skills.json');
+  skillData = await response.json();
+  for (let i = 0; i < skillData.length; i++) {
+    const card = buildCard(skillData[i], i);
+    cardList.append(card);
+    cards.push(card);
+  }
+  console.log(`Loaded ${skillData.length} skills from skills.json`);
+}
+ 
+loadSkills();
