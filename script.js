@@ -114,3 +114,88 @@ async function loadSkills() {
 }
  
 loadSkills();
+
+
+const carousel = document.querySelector('.gallery-carousel');
+const track = document.querySelector('.gallery-track');
+const slides = document.querySelectorAll('.gallery-slide');
+const galleryRows = document.querySelectorAll('.gallery-list li');
+const prevButton = document.querySelector('.carousel-prev');
+const nextButton = document.querySelector('.carousel-next');
+ 
+let currentSlide = 0;
+let autoTimer = null;
+let isHovering = false;
+ 
+function showSlide(index) {
+  currentSlide = (index + slides.length) % slides.length;
+  track.style.transform = `translateX(${-100 * currentSlide}%)`;
+  for (let i = 0; i < galleryRows.length; i++) {
+    galleryRows[i].classList.toggle('is-current', i === currentSlide);
+  }
+}
+
+prevButton.addEventListener('click', () => {
+  showSlide(currentSlide - 1);
+  startAuto();
+});
+ 
+nextButton.addEventListener('click', () => {
+  showSlide(currentSlide + 1);
+  startAuto();
+});
+ 
+for (let i = 0; i < galleryRows.length; i++) {
+  galleryRows[i].addEventListener('click', () => {
+    showSlide(i);
+    startAuto();
+  });
+}
+
+function startAuto() {
+  stopAuto();
+  if (reduceMotion || isHovering) {
+    return;
+  }
+  autoTimer = setInterval(() => {
+    showSlide(currentSlide + 1);
+  }, 5000);
+}
+ 
+function stopAuto() {
+  clearInterval(autoTimer);
+}
+ 
+carousel.addEventListener('mouseenter', () => {
+  isHovering = true;
+  stopAuto();
+});
+ 
+carousel.addEventListener('mouseleave', () => {
+  isHovering = false;
+  startAuto();
+});
+
+let swipeStartX = null;
+ 
+carousel.addEventListener('pointerdown', (event) => {
+  swipeStartX = event.clientX;
+});
+ 
+carousel.addEventListener('pointerup', (event) => {
+  if (swipeStartX === null) {
+    return;
+  }
+  const distance = event.clientX - swipeStartX;
+  if (distance < -50) {
+    showSlide(currentSlide + 1);
+    startAuto();
+  } else if (distance > 50) {
+    showSlide(currentSlide - 1);
+    startAuto();
+  }
+  swipeStartX = null;
+});
+
+showSlide(0);
+startAuto();

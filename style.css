@@ -390,10 +390,63 @@ figcaption {
     gap: var(--space-6) var(--space-8);
 }
 
-.gallery-art{
-    width: 100%;
-    border-radius: 12px;
+.gallery-carousel {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  touch-action: pan-y;
 }
+ 
+.gallery-track {
+  display: flex;
+  height: 100%;
+  transition: transform var(--duration-4) var(--ease-standard);
+}
+ 
+.gallery-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+ 
+.carousel-button {
+  position: absolute;
+  bottom: var(--space-4);
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--color-accent-border);
+  background-color: var(--color-shade-dark);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: color var(--duration-1) var(--ease-standard), border-color var(--duration-1) var(--ease-standard);
+}
+ 
+.carousel-prev {
+  right: calc(var(--space-4) + 2.75rem + var(--space-2));
+}
+ 
+.carousel-next {
+  right: var(--space-4);
+}
+ 
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+ 
+.carousel-button:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
 
 .gallery-list {
     max-width: 40rem;
@@ -428,11 +481,13 @@ figcaption {
     transition: transform var(--duration-2) var(--ease-standard);
 }
 
-.gallery-list li:hover::after{
+.gallery-list li:hover::after,
+.gallery-list li.is-current::after {
     transform: scaleX(1);
 }
 
-.gallery-list li:hover .item-title{
+.gallery-list li:hover .item-title,
+.gallery-list.is-current:hover .item-title {
     transform: translateX(6px);
 }
 

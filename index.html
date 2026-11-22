@@ -49,7 +49,20 @@
                     </ul>
                 <a href = "#gallery" class = "more">More</a>
                 </div>
-                <img src = "images/30.jpg" alt = "Shorekeeper splash art" class = "gallery-art">
+                <div class="gallery-carousel">
+                    <div class="gallery-track">
+                        <img src="images/30.jpg" alt="Shorekeeper splash art" class="gallery-slide" draggable="false">
+                        <img src="images/gallery-2.jpg" alt="Shorekeeper character trailer" class="gallery-slide" draggable="false">
+                        <img src="images/gallery-3.jpg" alt="Shorekeeper birthday art" class="gallery-slide" draggable="false">
+                </div>
+                <button class="carousel-button carousel-prev" type="button" aria-label="Previous image">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
+                </button>
+                <button class="carousel-button carousel-next" type="button" aria-label="Next image">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </button>
+                </div>
+
             </div>
         </section>
         <!--Stage 3: Replicate Skills page-->
