@@ -80,19 +80,21 @@ function buildCard(skill, index) {
 }
  
 function showSkill(skill) {
+  hideTip();
   document.querySelector('.skill-type').textContent = skill.type;
   document.querySelector('.skill-name').textContent = skill.name;
   document.querySelector('.skill-short').textContent = skill.short;
-  document.querySelector('.skill-what').textContent = skill.what;
+  buildWhat(skill.what);
  
   const related = document.querySelector('.skill-related');
   related.textContent = '';
   for (const text of skill.related) {
     const item = document.createElement('li');
-    item.textContent = text;
+    buildRichText(item, text);
     related.append(item);
   }
 }
+
  
 function openSkill(index) {
   for (let i = 0; i < cards.length; i++) {
@@ -111,8 +113,158 @@ async function loadSkills() {
     cards.push(card);
   }
   console.log(`Loaded ${skillData.length} skills from skills.json`);
+
+  const termResponse = await fetch('terms.json');
+  termData = await termResponse.json();
+  console.log('Terms in terms.json:', Object.keys(termData));
+}
+
+
+let termData = {};
+ 
+const tip = document.querySelector('#term-tip');
+const tipTitle = document.querySelector('.term-tip-title');
+const tipText = document.querySelector('.term-tip-text');
+ 
+
+let currentTerm = null;
+let hideTimer = null;
+ 
+
+function buildRichText(element, text) {
+  const pieces = text.split(/(\*[^*]+\*|\[[^\]]+\])/);
+  for (const piece of pieces) {
+    if (piece.startsWith('*')) {
+      const mark = document.createElement('b');
+      mark.className = 'hl';
+      mark.textContent = piece.slice(1, -1);
+      element.append(mark);
+    } else if (piece.startsWith('[')) {
+      element.append(buildTerm(piece.slice(1, -1)));
+    } else {
+      element.append(piece);
+    }
+  }
 }
  
+
+function buildTerm(name) {
+  const term = document.createElement('button');
+  term.type = 'button';
+  term.className = 'term';
+  term.textContent = name;
+  term.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'mouse') {
+      showTip(term);
+    }
+  });
+  term.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'mouse') {
+      hideTipSoon();
+    }
+  });
+  term.addEventListener('click', () => showTip(term));
+  term.addEventListener('focus', () => showTip(term));
+  term.addEventListener('blur', hideTip);
+  return term;
+}
+ 
+function buildWhat(blocks) {
+  const what = document.querySelector('.skill-what');
+  what.textContent = '';
+  for (const block of blocks) {
+    if (block.title !== '') {
+      const title = document.createElement('h5');
+      title.className = 'what-title';
+      title.textContent = block.title;
+      what.append(title);
+    }
+    for (const part of block.body) {
+      if (Array.isArray(part)) {
+        const list = document.createElement('ul');
+        for (const line of part) {
+          const item = document.createElement('li');
+          buildRichText(item, line);
+          list.append(item);
+        }
+        what.append(list);
+      } else {
+        const paragraph = document.createElement('p');
+        buildRichText(paragraph, part);
+        what.append(paragraph);
+      }
+    }
+  }
+}
+ 
+function showTip(term) {
+  hideTip();
+  const text = termData[term.textContent];
+  if (text === undefined) {
+    console.warn(`terms.json has no entry for: ${term.textContent}`);
+    return;
+  }
+  tipTitle.textContent = term.textContent;
+  tipText.textContent = '';
+  buildRichText(tipText, text);
+  placeTip(term);
+  tip.classList.add('is-visible');
+  term.setAttribute('aria-describedby', 'term-tip');
+  currentTerm = term;
+}
+ 
+function hideTip() {
+  clearTimeout(hideTimer);
+  tip.classList.remove('is-visible');
+  if (currentTerm !== null) {
+    currentTerm.removeAttribute('aria-describedby');
+    currentTerm = null;
+  }
+}
+ 
+function hideTipSoon() {
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(hideTip, 150);
+}
+ 
+function placeTip(term) {
+  const box = term.getBoundingClientRect();
+  const gap = 8;
+  const edge = 16;
+  let left = box.left;
+  let top = box.bottom + gap;
+  if (left + tip.offsetWidth > window.innerWidth - edge) {
+    left = window.innerWidth - edge - tip.offsetWidth;
+  }
+  if (top + tip.offsetHeight > window.innerHeight - edge) {
+    top = box.top - gap - tip.offsetHeight;
+  }
+  tip.style.left = `${left + window.scrollX}px`;
+  tip.style.top = `${top + window.scrollY}px`;
+}
+ 
+tip.addEventListener('pointerenter', () => {
+  clearTimeout(hideTimer);
+});
+tip.addEventListener('pointerleave', (event) => {
+  if (event.pointerType === 'mouse') {
+    hideTipSoon();
+  }
+});
+ 
+document.addEventListener('pointerdown', (event) => {
+  if (event.target.closest('.term, .term-tip') === null) {
+    hideTip();
+  }
+});
+ 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    hideTip();
+  }
+});
+
+
 loadSkills();
 
 

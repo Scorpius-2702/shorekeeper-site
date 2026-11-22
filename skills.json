@@ -1,82 +1,140 @@
 [
-    {
-        "type" : "Normal Attack",
-        "name" : "Origin Calculus",
-        "image": "images/icon-normal-attack.svg",
-        "short": "Attacks dealing Spectro DMG",
-        "what": "Perform up to 4 consecutive attacks, dealing Spectro DMG. Each hit generates 1 Collapsed Core.",
-        "related": [],
-        "moves": [
-            { "name": "Basic Attack", "short": "", "video": "videos/basic-attack.mp4", "poster": "images/normal-basic.jpg" },
-            { "name": "Unbound Form", "short": "", "video": "videos/normal-unbound.mp4", "poster": "images/normal-unbound.jpg"}
+  {
+    "type": "Normal Attack",
+    "name": "Origin Calculus",
+    "image": "images/icon-normal-attack.svg",
+    "short": "",
+    "what": [
+      {
+        "title": "Basic Attack",
+        "body": [
+          "Perform up to 4 consecutive attacks, dealing *Spectro DMG*. Each hit generates 1 [Collapsed Core]."
         ]
-    },
-    {
-        "type": "Resonance Skill",
-        "name": "Chaos Theory",
-        "image": "images/icon-resonance-skill.svg",
-        "short": "Heals nearby teammate and sends five Dim Star Butterflies after the enemy.",
-        "what": "Restore HP for all nearby party members and summon 5 Dim Star Butterflies, which automatically track and attack a target, dealing Spectro DMG. Follow up with Basic Attack in time to start the Basic Attack cycle from Stage 2. Can be performed in mid-air.",
-        "related": [
-            "Forte Circuit, Astral Chord: Collapsed Cores from her Normal Attacks turn into homing Flare Star Butterflies.",
-            "Resonance Liberation, End Loop: creates a Stellarealm that constantly heals the team."
-        ],
-        "moves": [
-            { "name": "Chaos Theory", "short": "Heals nearby teammate and sends five Dim Star Butterflies after the enemy.", "video": "videos/chaos-theory.mp4", "poster": "images/chaos-theory.jpg" }
+      },
+      {
+        "title": "Heavy Attack",
+        "body": [
+          "Hold the *Normal Attack Button* to enter *Unbound Form*, which consumes *STA* continuously. While in this form, Shorekeeper will:",
+          [
+            "Generate a segment of *Deductive Data* every second;",
+            "Automatically collect nearby plant collectibles."
+          ],
+          "Using up all *STA* or actions such as casting *Basic Attack* will end the *Unbound Form* and deal *Spectro DMG* to the target. Each accumulated segment of *Deductive Data* will convert into a segment of Empirical Data and generate a [Collapsed Core]."
         ]
+      },
+      {
+        "title": "Mid-air Attack",
+        "body": [
+          "Consume *STA* to perform a Plunging Attack. Each hit generates 1 [Collapsed Core]."
+        ]
+      },
+      {
+        "title": "Dodge Counter",
+        "body": [
+          "Press the *Normal Attack button* after a successful *Dodge* to attack a target, dealing *Spectro DMG*."
+        ]
+      }
+    ],
+    "related": [],
+    "moves": [
+      { "name": "Basic Attack", "short": "", "video": "videos/normal-basic.mp4", "poster": "images/normal-basic.jpg" },
+      { "name": "Unbound Form", "short": "", "video": "videos/normal-unbound.mp4", "poster": "images/normal-unbound.jpg" }
+    ]
   },
   {
-        "type": "Resonance Liberation",
-        "name": "End Loop",
-        "image": "images/icon-resonance-liberation.svg",
-        "short": "Creating a Stellarealm that continuously restores HP for all teammates.",
-        "what": "Generate the Outer Stellarealm to restore HP for all party members within its effective range continuously. This effect can be triggered once every 3s.",
-        "related": [
-            "Inner Stellarealm: When a party member uses Intro Skill within the Outer Stellarealm, it evolves into the Inner Stellarealm. Within the effective range of the Inner Stellarealm, for every 0.2% of Shorekeeper's Energy Regen, all party members gain a 0.01% increase of Crit. Rate, up to 12.5%. Inner Stellarealm has all the effects of the Outer Stellarealm.",
-            "Supernal Stellarealm: When a party member uses Intro Skill within the Inner Stellarealm, it evolves into the Supernal Stellarealm. Within the effective range of the Supernal Stellarealm, for every 0.1% of Shorekeeper's Energy Regen, all party members gain a 0.01% of Crit. DMG, up to 25%. Supernal Stellarealm has all the effects of the Inner Stellarealm."
-        ],
-        "moves": [
-            { "name": "End Loop", "short": "She creates a Stellarealm that keeps healing the team.", "video": "videos/end-loop.mp4", "poster": "images/end-loop.jpg" }
+    "type": "Resonance Skill",
+    "name": "Chaos Theory",
+    "image": "images/icon-resonance-skill.svg",
+    "short": "She mends the whole team and sends five Dim Star Butterflies after the enemy.",
+    "what": [
+      {
+        "title": "",
+        "body": [
+          "Restore HP for all nearby party members and summon 5 *Dim Star Butterflies*, which automatically track and attack a target, dealing *Spectro DMG*. Follow up with *Basic Attack* in time to start the *Basic Attack* cycle from Stage 2. Can be performed in mid-air."
         ]
+      }
+    ],
+    "related": [
+      "Forte Circuit, Astral Chord: *Collapsed Cores* from her *Normal Attacks* turn into homing *Flare Star Butterflies*.",
+      "Resonance Liberation, End Loop: creates a *Stellarealm* that keeps healing the team."
+    ],
+    "moves": [
+      { "name": "Chaos Theory", "short": "She mends the whole team and sends five Dim Star Butterflies after the enemy.", "video": "videos/chaos-theory.mp4", "poster": "images/chaos-theory.jpg" }
+    ]
   },
   {
-        "type": "Forte Circuit",
-        "name": "Astral Chord",
-        "image": "images/icon-forte-circuit.svg",
-        "short": "Transforms Collapsed Cores from her Normal Attacks to homing Flare Star Butterflies.",
-        "what": "",
-        "related": [
-            "Flare Star Butterfly: Hitting a target with a Normal Attack generates a Collapsed Core, which transforms into a Flare Star Butterfly after 6s. Flare Star Butterflies automatically track and attack a target, dealing Spectro DMG. If there are already 5 Collapsed Cores, Shorekeeper's next Basic Attack hit will instantly convert a Collapsed Core into a Flare Star Butterfly.",
-            "Illation: When Shorekeeper has 5 segments of Empirical Data, casting Heavy Attack will consume all segments to pull in nearby targets, dealing Spectro DMG. Meanwhile, all generated Collapsed Cores will instantly transform into Flare Star Butterflies.",
-            "Transmutation: When Shorekeeper has 5 segments of Empirical Data, casting Mid-air Attack will consume all segments to deal Spectro DMG. Meanwhile, all generated Collapsed Cores will instantly transform into Flare Star Butterflies. Quickly press the Normal Attack Button afterward to perform Basic Attack Stage 2."
-            ],
-        "moves": [
-            { "name": "Illation", "short": "", "video": "", "poster": "" }
-        ]
+    "type": "Resonance Liberation",
+    "name": "End Loop",
+    "image": "images/icon-resonance-liberation.svg",
+    "short": "She creates a Stellarealm that keeps healing the team.",
+    "what": [],
+    "related": [],
+    "moves": [
+      { "name": "End Loop", "short": "She creates a Stellarealm that keeps healing the team.", "video": "videos/end-loop.mp4", "poster": "images/end-loop.jpg" }
+    ]
   },
   {
-        "type": "Intro Skill",
-        "name": "Proof of Existence",
-        "image": "images/icon-intro-skill.svg",
-        "short": "Summon Dim Star Butterflies and heal all nearby party members",
-        "what": "Shorekeeper appears to restore HP for all nearby party members and summon 5 Dim Star Butterflies, which automatically track and attack a target, dealing Spectro DMG. This is considered Resonance Skill DMG.",
-        "related": [
-            "Discernment: When a Supernal Stellarealm is generated, Shorekeeper's first Intro Skill triggered in its duration will be replaced with Intro Skill Discernment. Casting Discernment ends the current Stellarealm, restores HP for all nearby party members, and deals Spectro DMG to the targets. This attack is guaranteed to be a Critical Hit dealing Resonance Liberation DMG. The Intro Skill Discernment can only be triggered once each time a Supernal Stellarealm is generated."
-        ],
-        "moves": [
-            { "name": "Enlightenment", "short": "", "video": "videos/intro-enlightenment.mp4", "poster": "images/intro-enlightenment.jpg" }
+    "type": "Forte Circuit",
+    "name": "Astral Chord",
+    "image": "images/icon-forte-circuit.svg",
+    "short": "Collapsed Cores from her Normal Attacks turn into homing Flare Star Butterflies.",
+    "what": [
+      {
+        "title": "Flare Star Butterfly",
+        "body": [
+          "Hitting a target with a *Normal Attack* generates a *Collapsed Core*, which transforms into a *Flare Star Butterfly* after 6s. *Flare Star Butterflies* automatically track and attack a target, dealing *Spectro DMG*. If there are already 5 *Collapsed Cores*, Shorekeeper's next *Basic Attack* hit will instantly convert a *Collapsed Core* into a *Flare Star Butterfly*."
         ]
+      },
+      {
+        "title": "Illation",
+        "body": [
+          "When Shorekeeper has 5 segments of Empirical Data, casting *Heavy Attack* will consume all segments to pull in nearby targets, dealing *Spectro DMG*. Meanwhile, all generated *Collapsed Cores* will instantly transform into *Flare Star Butterflies*."
+        ]
+      },
+      {
+        "title": "Transmutation",
+        "body": [
+          "When Shorekeeper has 5 segments of Empirical Data, casting *Mid-air Attack* will consume all segments to deal *Spectro DMG*. Meanwhile, all generated *Collapsed Cores* will instantly transform into *Flare Star Butterflies*. Quickly press the *Normal Attack Button* afterward to perform *Basic Attack Stage 2*."
+        ]
+      },
+      {
+        "title": "Empirical Data",
+        "body": [
+          "Shorekeeper can hold up to 5 segments of Empirical Data.",
+          [
+            "Obtain 1 segment of Empirical Data when *Basic Attack Stage 1, 2, or 4* hits a target.",
+            "Obtain 2 segments of Empirical Data when *Basic Attack Stage 3* hits a target.",
+            "Obtain 1 segment of Empirical Data when *Mid-air Attack* hits a target.",
+            "Obtain 1 segment of Empirical Data when *Dodge Counter* hits a target."
+          ]
+        ]
+      }
+    ],
+    "related": [],
+    "moves": [
+      { "name": "Illation", "short": "", "video": "videos/forte-illation.mp4", "poster": "images/forte-illation.jpg" }
+    ]
   },
   {
-        "type": "Outro Skill",
-        "name": "Binary Butterfly",
-        "image": "images/icon-outro-skill.svg",
-        "short": "Shorekeeper summons butterflies, granting various effects",
-        "what": "",
-        "related": [],
-        "moves": [
-            { "name": "Binary Butterfly", "short": "", "video": "", "poster": "" }
-        ]
-    }
+    "type": "Intro Skill",
+    "name": "Proof of Existence",
+    "image": "images/icon-intro-skill.svg",
+    "short": "",
+    "what": [],
+    "related": [],
+    "moves": [
+      { "name": "Enlightenment", "short": "", "video": "videos/intro-enlightenment.mp4", "poster": "images/intro-enlightenment.jpg" }
+    ]
+  },
+  {
+    "type": "Outro Skill",
+    "name": "Binary Butterfly",
+    "image": "images/icon-outro-skill.svg",
+    "short": "",
+    "what": [],
+    "related": [],
+    "moves": [
+      { "name": "Binary Butterfly", "short": "", "video": "", "poster": "" }
+    ]
+  }
 ]
-
