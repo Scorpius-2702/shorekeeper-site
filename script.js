@@ -168,14 +168,15 @@ function buildMoves(skill) {
     movesBox.append(button);
   }
 }
-
+function showMove(skill, moveIndex) {
+  const move = skill.moves[moveIndex];
   const short = document.querySelector('.skill-short');
   if (move.short !== '') {
     short.textContent = move.short;
   } else {
     short.textContent = skill.short;
   }
- 
+}
   const buttons = movesBox.querySelectorAll('.move-button');
   for (let i = 0; i < buttons.length; i++) {
     if (i === moveIndex) {
@@ -197,6 +198,28 @@ function buildMoves(skill) {
     videoToggle.hidden = true;
   }
 
+function updateToggle() {
+  videoToggle.classList.toggle('is-paused', videoPaused);
+  const text = videoToggle.querySelector('.video-toggle-text');
+  if (videoPaused) {
+    text.textContent = 'Play';
+  } else {
+    text.textContent = 'Pause';
+  }
+}
+
+videoToggle.addEventListener('click', () => {
+  if (videoPaused) {
+    videoPaused = false;
+    playVideo();
+  } else {
+    videoPaused = true;
+    skillVideo.pause();
+  }
+  updateToggle();
+});
+
+updateToggle();
 
 async function loadSkills() {
   const response = await fetch('skills.json');
