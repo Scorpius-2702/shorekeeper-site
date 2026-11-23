@@ -93,17 +93,49 @@ function showSkill(skill) {
     buildRichText(item, text);
     related.append(item);
   }
+ 
+  document.querySelector('.detail-what').hidden = skill.what.length === 0;
+  document.querySelector('.detail-related').hidden = skill.related.length === 0;
 }
+
 
  
 function openSkill(index) {
+  const wasOpen = skillsScreen.classList.contains('is-open');
   for (let i = 0; i < cards.length; i++) {
     cards[i].classList.toggle('is-active', i === index);
+    const button = cards[i].querySelector('.card-button');
+    if (i === index) {
+      button.setAttribute('aria-current', 'true');
+    } else {
+      button.removeAttribute('aria-current');
+    }
   }
   skillsScreen.classList.add('is-open');
   showSkill(skillData[index]);
+  if (wasOpen === false) {
+    skillsScreen.scrollIntoView();
+  }
+}
+
+
+function closeSkill() {
+  const activeCard = document.querySelector('.skill-card.is-active');
+  if (activeCard === null) {
+    return;
+  }
+  hideTip();
+  activeCard.classList.remove('is-active');
+  const button = activeCard.querySelector('.card-button');
+  button.removeAttribute('aria-current');
+  skillsScreen.classList.remove('is-open');
+  skillsScreen.scrollIntoView();
+  button.focus();
 }
  
+document.querySelector('.skill-close').addEventListener('click', closeSkill);
+
+
 async function loadSkills() {
   const response = await fetch('skills.json');
   skillData = await response.json();
@@ -259,10 +291,16 @@ document.addEventListener('pointerdown', (event) => {
 });
  
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
+  if (event.key !== 'Escape') {
+    return;
+  }
+  if (currentTerm !== null) {
     hideTip();
+  } else {
+    closeSkill();
   }
 });
+
 
 
 loadSkills();
