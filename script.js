@@ -83,7 +83,8 @@ function showSkill(skill) {
   hideTip();
   document.querySelector('.skill-type').textContent = skill.type;
   document.querySelector('.skill-name').textContent = skill.name;
-  document.querySelector('.skill-short').textContent = skill.short;
+  buildMoves(skill);
+  showMove(skill, 0);
   buildWhat(skill.what);
  
   const related = document.querySelector('.skill-related');
@@ -97,6 +98,7 @@ function showSkill(skill) {
   document.querySelector('.detail-what').hidden = skill.what.length === 0;
   document.querySelector('.detail-related').hidden = skill.related.length === 0;
 }
+
 
 
  
@@ -129,11 +131,71 @@ function closeSkill() {
   const button = activeCard.querySelector('.card-button');
   button.removeAttribute('aria-current');
   skillsScreen.classList.remove('is-open');
+  skillVideo.pause();
   skillsScreen.scrollIntoView();
   button.focus();
 }
+
  
 document.querySelector('.skill-close').addEventListener('click', closeSkill);
+
+const skillVideo = document.querySelector('.skill-video');
+const movesBox = document.querySelector('.skill-moves');
+const videoToggle = document.querySelector('.video-toggle');
+ 
+let videoPaused = reduceMotion;
+ 
+function playVideo() {
+  if (videoPaused) {
+    return;
+  }
+  skillVideo.play().catch(() => {});
+}
+
+function buildMoves(skill) {
+  movesBox.textContent = '';
+  if (skill.moves.length < 2) {
+    return;
+  }
+  for (let i = 0; i < skill.moves.length; i++) {
+    const button = document.createElement('button');
+    button.className = 'move-button';
+    button.type = 'button';
+    button.textContent = skill.moves[i].name;
+    button.addEventListener('click', () => {
+      showMove(skill, i);
+    });
+    movesBox.append(button);
+  }
+}
+
+  const short = document.querySelector('.skill-short');
+  if (move.short !== '') {
+    short.textContent = move.short;
+  } else {
+    short.textContent = skill.short;
+  }
+ 
+  const buttons = movesBox.querySelectorAll('.move-button');
+  for (let i = 0; i < buttons.length; i++) {
+    if (i === moveIndex) {
+      buttons[i].setAttribute('aria-current', 'true');
+    } else {
+      buttons[i].removeAttribute('aria-current');
+    }
+  }
+ 
+  if (move.video !== '') {
+    skillVideo.poster = move.poster;
+    skillVideo.src = move.video;
+    videoToggle.hidden = false;
+    playVideo();
+  } else {
+    skillVideo.removeAttribute('poster');
+    skillVideo.removeAttribute('src');
+    skillVideo.load();
+    videoToggle.hidden = true;
+  }
 
 
 async function loadSkills() {

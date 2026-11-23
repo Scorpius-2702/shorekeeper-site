@@ -1001,3 +1001,68 @@ figcaption {
     top: var(--space-8);
   }
 }
+
+.skill-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+ 
+.skill-moves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+ 
+.move-button,
+.video-toggle {
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-accent-line);
+  background-color: rgb(13 18 28 / 0.5);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--duration-1) var(--ease-standard),
+              border-color var(--duration-1) var(--ease-standard),
+              background-color var(--duration-1) var(--ease-standard);
+}
+ 
+.move-button:hover,
+.move-button:focus-visible,
+.video-toggle:hover,
+.video-toggle:focus-visible {
+  border-color: var(--color-accent);
+}
+ 
+.move-button:focus-visible,
+.video-toggle:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+ 
+.move-button[aria-current="true"] {
+  border-color: var(--color-accent);
+  background-color: rgb(212 176 106 / 0.18);
+  color: var(--color-accent);
+}
+ 
+.video-toggle svg {
+  width: 14px;
+  height: 14px;
+  margin-right: var(--space-2);
+  vertical-align: -2px;
+}
+ 
+.video-toggle .icon-play,
+.video-toggle.is-paused .icon-pause {
+  display: none;
+}
+ 
+.video-toggle.is-paused .icon-play {
+  display: inline;
+}
