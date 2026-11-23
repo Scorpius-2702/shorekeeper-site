@@ -176,7 +176,7 @@ function showMove(skill, moveIndex) {
   } else {
     short.textContent = skill.short;
   }
-}
+
   const buttons = movesBox.querySelectorAll('.move-button');
   for (let i = 0; i < buttons.length; i++) {
     if (i === moveIndex) {
@@ -197,7 +197,7 @@ function showMove(skill, moveIndex) {
     skillVideo.load();
     videoToggle.hidden = true;
   }
-
+}
 function updateToggle() {
   videoToggle.classList.toggle('is-paused', videoPaused);
   const text = videoToggle.querySelector('.video-toggle-text');
