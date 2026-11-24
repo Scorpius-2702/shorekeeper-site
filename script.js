@@ -474,3 +474,48 @@ carousel.addEventListener('pointerup', (event) => {
 
 showSlide(0);
 startAuto();
+
+const bsBars = document.querySelector('.bs-bars');
+const bars = [];
+ 
+let sectorData = [];
+ 
+function buildBar(sector, index) {
+  const bar = document.createElement('button');
+  bar.className = 'bar';
+  bar.type = 'button';
+ 
+  const art = document.createElement('img');
+  art.className = 'bar-art';
+  art.src = sector.art;
+  art.alt = '';
+ 
+  const inner = document.createElement('span');
+  inner.className = 'bar-in';
+ 
+  const num = document.createElement('span');
+  num.className = 'bar-num';
+  num.textContent = twoDigits(index + 1);
+  num.setAttribute('aria-hidden', 'true');
+ 
+  const label = document.createElement('span');
+  label.className = 'bar-label';
+  label.textContent = sector.label;
+ 
+  inner.append(num, label);
+  bar.append(art, inner);
+  return bar;
+}
+
+async function loadSectors() {
+  const response = await fetch('blackshores.json');
+  sectorData = await response.json();
+  for (let i = 0; i < sectorData.length; i++) {
+    const bar = buildBar(sectorData[i], i);
+    bsBars.append(bar);
+    bars.push(bar);
+  }
+  console.log(`Loaded ${sectorData.length} sectors from blackshores.json`);
+}
+ 
+loadSectors();

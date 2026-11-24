@@ -67,7 +67,9 @@
     "name": "End Loop",
     "image": "images/icon-resonance-liberation.svg",
     "short": "She creates a Stellarealm that keeps healing the team.",
-    "what": [],
+    "what": [
+      
+    ],
     "related": [],
     "moves": [
       { "name": "End Loop", "short": "She creates a Stellarealm that keeps healing the team.", "video": "videos/end-loop.mp4", "poster": "images/end-loop.jpg" }
@@ -120,7 +122,20 @@
     "name": "Proof of Existence",
     "image": "images/icon-intro-skill.svg",
     "short": "",
-    "what": [],
+    "what": [
+      {
+        "title": "Enlightenment",
+        "body": [
+          "Shorekeeper appears to restore HP for all nearby party members and summon 5 *Dim Star Butterflies*, which automatically track and attack a target, dealing *Spectro DMG*. This is considered Resonance Skill DMG."
+        ]
+      },
+      {
+        "title": "Discernment",
+        "body": [
+          "When a *Supernal Stellarealm* is generated, Shorekeeper's first Intro Skill triggered in its duration will be replaced with Intro Skill *Discernment*. Casting Discernment ends the current Stellarealm, restores HP for all nearby party members, and deals *Spectro DMG* to the targets. This attack is guaranteed to be a Critical Hit dealing Resonance Liberation DMG. The Intro Skill *Discernment* can only be triggered once each time a *Supernal Stellarealm* is generated."
+        ]
+      }
+    ],
     "related": [],
     "moves": [
       { "name": "Enlightenment", "short": "", "video": "videos/intro-enlightenment.mp4", "poster": "images/intro-enlightenment.jpg" }
@@ -131,7 +146,17 @@
     "name": "Binary Butterfly",
     "image": "images/icon-outro-skill.svg",
     "short": "",
-    "what": [],
+    "what": [
+      {
+        "body":[
+            "Shorekeeper summons 1 Flare Star Butterfly and 1 Dim Star Butterfly to circle the Resonator on the field for up to 30s, granting the following effects:",
+            [
+              "If the Resonator on the field is hit or launched, tapping the Dodge Button allows the Resonator to immediately recover from the interruption, triggering a successful Dodge. The Resonator launched in the air can land on the ground standing if they are close to the ground. This effect can be triggered up to 5 time(s).",
+              "All nearby party members' DMG is Amplified by 15%."
+            ]
+        ]
+      }
+    ],
     "related": [],
     "moves": [
       { "name": "Binary Butterfly", "short": "", "video": "", "poster": "" }
