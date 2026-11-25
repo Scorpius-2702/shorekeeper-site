@@ -1067,8 +1067,12 @@ figcaption {
   display: inline;
 }
 
-.bs-intro {
-  margin-bottom: var(--space-6);
+.black-shores {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) minmax(0, 3fr);
+  align-items: end;
+  gap: var(--space-7);
+  padding-bottom: calc(var(--space-8) * 2);
 }
  
 .bs-intro p {
@@ -1077,10 +1081,11 @@ figcaption {
 }
  
 .bs-bars {
+  --bar-h: clamp(26rem, 100vh - 14rem, 46rem);
   display: flex;
   gap: var(--space-3);
-  height: min(60vh, 28rem);
-  padding: 0 var(--space-7);
+  height: var(--bar-h);
+  padding: 0 calc(var(--bar-h) * 0.107);
 }
 
 .bar {
@@ -1102,8 +1107,8 @@ figcaption {
 .bar-art {
   position: absolute;
   top: 0;
-  left: -30%;
-  width: 160%;
+  left: calc(var(--bar-h) * -0.107);
+  width: calc(100% + var(--bar-h) * 0.214);
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
@@ -1120,14 +1125,13 @@ figcaption {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-7) var(--space-5) var(--space-5);
-  text-align: left;
+  align-items: flex-start;
+  padding: var(--space-4) var(--space-4) var(--space-5) var(--space-5);
   transform: skewX(12deg);
 }
  
 .bar-num {
-  margin-left: var(--space-7);
-  font-family: var(--font-heading);
+  margin-left: calc(var(--bar-h) * 0.107);  
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--color-muted);
@@ -1141,6 +1145,7 @@ figcaption {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-accent);
+  margin-left: calc(var(--bar-h) * -0.107);
 }
 
 .bar:hover,
@@ -1168,13 +1173,28 @@ figcaption {
   outline-offset: 3px;
 }
 
-@media (max-width: 1000px) {
-  .bs-bars {
-    flex-direction: column;
-    height: 22rem;
-    padding: 0 var(--space-3);
+@media (max-width: 1100px) {
+  .bar-label {
+    font-size: var(--text-base);
   }
- 
+}
+
+@media (max-width: 1000px) {
+  .black-shores {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    padding-bottom: var(--space-8);
+  }
+  .bs-bars {
+    --bar-h: 6.5rem;
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .bar {
+    flex: 0 0 var(--bar-h);
+  }
+
   .bar-in {
     flex-direction: row;
     align-items: center;
@@ -1183,7 +1203,7 @@ figcaption {
     padding: 0 var(--space-5);
   }
  
-  .bar-num {
+  .bar-label {
     margin-left: 0;
   }
 }
