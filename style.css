@@ -569,7 +569,7 @@ figcaption {
 }
  
 .skill-shade {
-    background-image: var(--gradient-shade);
+    background-image: linear-gradient(to right, var(--color-shade-dark) 25%, var(--color-shade-clear) 55%);
     z-index: -1;
 }
  
