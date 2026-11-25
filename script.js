@@ -381,10 +381,13 @@ document.addEventListener('keydown', (event) => {
   }
   if (currentTerm !== null) {
     hideTip();
-  } else {
+  } else if (skillsScreen.classList.contains('is-open')) {
     closeSkill();
+  } else {
+    closeSector();
   }
 });
+
 
 
 
@@ -502,8 +505,13 @@ function buildBar(sector, index) {
   label.className = 'bar-label';
   label.textContent = sector.label;
  
+  
   inner.append(num, label);
   bar.append(art, inner);
+  bar.addEventListener('click', () => {
+    openSector(index);
+  });
+ 
   return bar;
 }
 
@@ -519,3 +527,86 @@ async function loadSectors() {
 }
  
 loadSectors();
+
+const bsSection = document.querySelector('.black-shores');
+const bsStage = document.querySelector('.bs-stage');
+ 
+let currentSector = -1;
+ 
+function buildTape(entry, sector, index) {
+  const tape = document.createElement('button');
+  tape.className = 'tape';
+  tape.type = 'button';
+  tape.classList.add(entry.look);
+  if (entry.featured === true) {
+    tape.classList.add('featured');
+  }
+  tape.setAttribute('aria-label', `${entry.name}, ${entry.meta}`);
+ 
+  const label = document.createElement('span');
+  label.className = 'tape-label';
+ 
+  const code = document.createElement('span');
+  code.className = 'tape-code';
+  code.textContent = `BLACK SHORES · ${sector.code}-${twoDigits(index + 1)}`;
+ 
+  const name = document.createElement('span');
+  name.className = 'tape-name';
+  name.textContent = entry.name;
+ 
+  label.append(code, name);
+ 
+  const tapeWindow = document.createElement('span');
+  tapeWindow.className = 'tape-window';
+  for (let i = 0; i < 2; i++) {
+    const reel = document.createElement('span');
+    reel.className = 'tape-reel';
+    tapeWindow.append(reel);
+  }
+ 
+  tape.append(label, tapeWindow);
+  return tape;
+}
+
+function openSector(index) {
+  const sector = sectorData[index];
+  currentSector = index;
+  for (let i = 0; i < bars.length; i++) {
+    if (i === index) {
+      bars[i].setAttribute('aria-current', 'true');
+    } else {
+      bars[i].removeAttribute('aria-current');
+    }
+  }
+  bsStage.textContent = '';
+  if (sector.entries.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'bs-empty';
+    empty.textContent = 'No records yet.';
+    bsStage.append(empty);
+  }
+  for (let i = 0; i < sector.entries.length; i++) {
+    bsStage.append(buildTape(sector.entries[i], sector, i));
+  }
+  bsSection.classList.add('is-open');
+  bsSection.scrollIntoView();
+  const firstTape = bsStage.querySelector('.tape');
+  if (firstTape !== null) {
+    firstTape.focus({ preventScroll: true });
+  }
+}
+ 
+function closeSector() {
+  if (currentSector === -1) {
+    return;
+  }
+  const bar = bars[currentSector];
+  bar.removeAttribute('aria-current');
+  bsSection.classList.remove('is-open');
+  bsStage.textContent = '';
+  currentSector = -1;
+  bsSection.scrollIntoView();
+  bar.focus();
+}
+ 
+document.querySelector('.bs-close').addEventListener('click', closeSector);
