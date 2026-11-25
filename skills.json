@@ -59,7 +59,7 @@
       "Resonance Liberation, End Loop: creates a *Stellarealm* that keeps healing the team."
     ],
     "moves": [
-      { "name": "Chaos Theory", "short": "She mends the whole team and sends five Dim Star Butterflies after the enemy.", "video": "videos/chaos-theory.mp4", "poster": "images/chaos-theory.jpg" }
+      { "name": "Chaos Theory", "short": "Heals nearby teammates and sends five Dim Star Butterflies after the enemy.", "video": "videos/chaos-theory.mp4", "poster": "images/chaos-theory.jpg" }
     ]
   },
   {
@@ -72,7 +72,7 @@
     ],
     "related": [],
     "moves": [
-      { "name": "End Loop", "short": "She creates a Stellarealm that keeps healing the team.", "video": "videos/end-loop.mp4", "poster": "images/end-loop.jpg" }
+      { "name": "End Loop", "short": "Creates a Stellarealm that constantly healing the team.", "video": "videos/end-loop.mp4", "poster": "images/end-loop.jpg" }
     ]
   },
   {
