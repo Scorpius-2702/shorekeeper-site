@@ -8,7 +8,7 @@
 
 ## Cách nói chuyện
 
-- Gọi người dùng là "anh", xưng "em". Trả lời bằng tiếng Việt, giữ nguyên thuật ngữ tiếng Anh (selector, event, fetch, ...).
+- Gọi người dùng là "anh", xưng "tôi". Trả lời bằng tiếng Việt, giữ nguyên thuật ngữ tiếng Anh (selector, event, fetch, ...).
 - Với mỗi thay đổi, nói rõ sửa file nào, chỗ nào, và vì sao, bằng câu đầy đủ. Anh đang học, nên lý do quan trọng hơn code.
 - Khi anh hỏi về một lỗi, chỉ ra nguyên nhân trước, rồi mới đưa cách sửa.
 
@@ -16,16 +16,21 @@
 
 - Đã xong: Bài 30, sáu thẻ kỹ năng dựng từ `skills.json`.
 - Chưa gõ: Bài 31 (băng chuyền ở màn Gallery) và Bài 32 (chữ tô vàng, danh sách và hộp chú thích). File `terms.json` của Bài 32 đã có sẵn.
+- Đã xong: Bài 1 tới Bài 36. Bài 35–36 dựng màn Black Shores: bốn thanh từ `blackshores.json` (Members, Facility, Areas, Timeline), mở một khu thì hiện các băng phẳng.
+- Bài tiếp theo: Bài 37 (băng dữ liệu dựng bằng CSS 3D).
 
 ## Quy tắc khi sửa code
 
 1. **Không viết trước bài học.** Nếu việc anh nhờ thuộc một bài sau, nói rõ là bài nào và hỏi anh trước khi làm. Các bài đã lên kế hoạch:
-   - Bài 31: băng chuyền tranh ở màn Gallery.
-   - Bài 32: chữ có định dạng (`*...*` tô vàng, `[...]` là thuật ngữ) và hộp chú thích đọc từ `terms.json`.
-   - Bài 33: mở và đóng phần chi tiết kỹ năng.
-   - Bài 34: chuyển kỹ năng và chiêu con (đổi video, dùng poster).
-   - Bài 37: hiệu ứng bướm cho hộp chú thích.
-   - Bài 42: chuyển cảnh bằng mặt nạ.
+   - Bài 37: băng dữ liệu dựng bằng CSS 3D; băng nổi bật (`featured`).
+   - Bài 38: vòng lặp chuyển động bằng `requestAnimationFrame` cho các băng.
+   - Bài 39: lớp HUD nhấp nháy khi rê chuột vào một băng.
+   - Bài 40: trang đọc một băng, danh sách mục con.
+   - Bài 41: chuyển cảnh mở băng kiểu B (khung HUD nở thành bảng đọc).
+   - Bài 42: khu Timeline, trục dọc với các điểm sự kiện.
+   - Bài 45: hiệu ứng bướm cho hộp chú thích.
+   - Bài 50: chuyển cảnh bằng mặt nạ.
+
 2. **Giữ nguyên các tên mà bài học dùng:** class, id, tên hàm (`twoDigits`, `updateCurrentLink`, `buildCard`, `showSkill`, `openSkill`, `loadSkills`) và tên thuộc tính trong JSON (`type`, `name`, `image`, `short`, `what`, `related`, `moves`, `video`, `poster`). Các bài sau dựa vào những tên này.
 3. **Không đổi cấu trúc.** Giữ `index.html`, `style.css`, `script.js`, `skills.json`, `terms.json` ở thư mục gốc, cùng ba thư mục `images/`, `videos/`, `fonts/`. Không thêm thư viện, framework, npm, công cụ build hay TypeScript.
 4. **Sửa ít nhất có thể.** Không định dạng lại cả file, không đổi kiểu viết của anh (ví dụ `class = "x"` có dấu cách vẫn là HTML đúng), không sắp xếp lại các khối CSS.
@@ -34,6 +39,8 @@
 7. **Thiết kế** (màu, bố cục, hiệu ứng, chữ trên trang) do bên bài học đề xuất và anh duyệt. Ở đây chỉ đề xuất, không tự quyết; ghi lại đề xuất để anh mang sang cuộc trò chuyện bài học.
 8. **Nội dung kỹ năng** trong `skills.json` và `terms.json` được chép từ wiki của game; không tự viết lại hay rút gọn.
 
+9. ... thêm vào danh sách tên hàm: `buildBar`, `loadSectors`, `buildTape`, `openSector`, `closeSector`; thêm vào danh sách thuộc tính JSON của `blackshores.json`: `code`, `label`, `art`, `entries`, `name`, `meta`, `featured`, `look`, `image`, `sections`, `title`, `text`.
+10. ... thêm `blackshores.json` vào danh sách file ở thư mục gốc.
 ## Git
 
 - Không tự commit hay push. Anh tự Commit và Sync Changes.

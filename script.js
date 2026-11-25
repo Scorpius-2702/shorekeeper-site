@@ -532,6 +532,32 @@ const bsSection = document.querySelector('.black-shores');
 const bsStage = document.querySelector('.bs-stage');
  
 let currentSector = -1;
+
+const bsWorld = document.querySelector('.bs-world');
+ 
+const backSlots = [
+  { x: '-29rem', y: '-28%', z: '-6rem', rx: '14deg', ry: '26deg', rz: '-6deg' },
+  { x: '29rem', y: '30%', z: '-8rem', rx: '-10deg', ry: '-24deg', rz: '6deg' },
+  { x: '28rem', y: '-30%', z: '-12rem', rx: '12deg', ry: '-20deg', rz: '4deg' },
+  { x: '-28rem', y: '30%', z: '-10rem', rx: '-12deg', ry: '22deg', rz: '-4deg' },
+  { x: '0rem', y: '36%', z: '-14rem', rx: '-16deg', ry: '6deg', rz: '-3deg' },
+  { x: '0rem', y: '-38%', z: '-16rem', rx: '18deg', ry: '-8deg', rz: '3deg' }
+];
+ 
+function frontSlot(k, count) {
+  const x = (k - (count - 1) / 2) * 19;
+  return { x: `${x}rem`, y: '0rem', z: '6rem', rx: '8deg', ry: '-10deg', rz: '-2deg' };
+}
+ 
+function placeTape(tape, slot) {
+  tape.style.setProperty('--x', slot.x);
+  tape.style.setProperty('--y', slot.y);
+  tape.style.setProperty('--z', slot.z);
+  tape.style.setProperty('--rx', slot.rx);
+  tape.style.setProperty('--ry', slot.ry);
+  tape.style.setProperty('--rz', slot.rz);
+}
+
  
 function buildTape(entry, sector, index) {
   const tape = document.createElement('button');
@@ -564,9 +590,56 @@ function buildTape(entry, sector, index) {
     tapeWindow.append(reel);
   }
  
-  tape.append(label, tapeWindow);
+  const front = document.createElement('span');
+  front.className = 'tape-face tape-front';
+  front.append(label, tapeWindow);
+  tape.append(front);
+
+  for (const side of ['back', 'top', 'bottom', 'left', 'right']) {
+    const face = document.createElement('span');
+    face.className = `tape-face tape-${side}`;
+    tape.append(face);
+  }
+
   return tape;
 }
+
+function fillWorld(sector) {
+  bsWorld.textContent = '';
+  if (sector.entries.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'bs-empty';
+    empty.textContent = 'No records yet.';
+    bsWorld.append(empty);
+  }
+ 
+  let frontCount = 0;
+  for (const entry of sector.entries) {
+    if (entry.featured === true) {
+      frontCount++;
+    }
+  }
+  const allFront = frontCount === 0;
+  if (allFront) {
+    frontCount = sector.entries.length;
+  }
+ 
+  let f = 0;
+  let b = 0;
+  for (let i = 0; i < sector.entries.length; i++) {
+    const entry = sector.entries[i];
+    const tape = buildTape(entry, sector, i);
+    if (entry.featured === true || allFront) {
+      placeTape(tape, frontSlot(f, frontCount));
+      f++;
+    } else {
+      placeTape(tape, backSlots[b % backSlots.length]);
+      b++;
+    }
+    bsWorld.append(tape);
+  }
+}
+
 
 function openSector(index) {
   const sector = sectorData[index];
@@ -578,16 +651,7 @@ function openSector(index) {
       bars[i].removeAttribute('aria-current');
     }
   }
-  bsStage.textContent = '';
-  if (sector.entries.length === 0) {
-    const empty = document.createElement('p');
-    empty.className = 'bs-empty';
-    empty.textContent = 'No records yet.';
-    bsStage.append(empty);
-  }
-  for (let i = 0; i < sector.entries.length; i++) {
-    bsStage.append(buildTape(sector.entries[i], sector, i));
-  }
+  fillWorld(sector);
   bsSection.classList.add('is-open');
   bsSection.scrollIntoView();
   const firstTape = bsStage.querySelector('.tape');
@@ -603,7 +667,7 @@ function closeSector() {
   const bar = bars[currentSector];
   bar.removeAttribute('aria-current');
   bsSection.classList.remove('is-open');
-  bsStage.textContent = '';
+  bsWorld.textContent = '';
   currentSector = -1;
   bsSection.scrollIntoView();
   bar.focus();

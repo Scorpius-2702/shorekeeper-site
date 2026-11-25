@@ -1130,6 +1130,7 @@ figcaption {
   align-items: flex-start;
   padding: var(--space-4) var(--space-4) var(--space-5) var(--space-5);
   transform: skewX(12deg);
+  z-index: 1;
 }
  
 .bar-num {
@@ -1240,14 +1241,37 @@ figcaption {
 }
  
 .black-shores.is-open .bs-stage {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  gap: var(--space-6);
-  min-height: calc(100vh - 20rem);
-  padding-top: var(--space-7);
+  display: block;
+  position: relative;
+  height: max(24rem, 100vh - 20rem);
+  margin-top: var(--space-7);
+  perspective: 70rem;
+ }
+
+.bs-world {
+  --depth: 0rem;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  transform: translateZ(var(--depth));
+  pointer-events: none;
 }
+
+@media (max-width: 1360px) {
+  .bs-world {
+    --depth: -8rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .bs-world {
+    --depth: -18rem;
+  }
+}
+
+
  
 .black-shores.is-open .bs-bars {
   --bar-h: 3.5rem;
@@ -1267,8 +1291,7 @@ figcaption {
 }
  
 .black-shores.is-open .bar-label {
-  writing-mode: horizontal-tb;
-  transform: none;
+  margin-left: 0;
   font-size: var(--text-sm);
 }
  
@@ -1283,39 +1306,126 @@ figcaption {
 }
 
 .tape {
-  position: relative;
-  width: 14rem;
-  height: 8.75rem;
+  --w: 14rem;
+  --h: 8.75rem;
+  --d: 1.4rem;
+  --shell: var(--color-tape-dark);
+  --x: 0rem;
+  --y: 0rem;
+  --z: 0rem;
+  --rx: 0deg;
+  --ry: 0deg;
+  --rz: 0deg;
+  --lift: 0rem;
+  --turn: 1;
+  position: absolute;
+  left: calc(50% + var(--x));
+  top: calc(50% + var(--y));
+  width: var(--w);
+  height: var(--h);
   padding: 0;
   border: 0;
-  border-radius: 0.45rem;
-  background-color: var(--color-tape-dark);
+  background: none;
   color: inherit;
   font: inherit;
   cursor: pointer;
-  transition: transform var(--duration-2) var(--ease-standard);
+  pointer-events: auto;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%)
+             translateZ(calc(var(--z) + var(--lift)))
+             rotateX(calc(var(--rx) * var(--turn)))
+             rotateY(calc(var(--ry) * var(--turn)))
+             rotateZ(calc(var(--rz) * var(--turn)));
+  transition: transform var(--duration-4) var(--ease-standard);
 }
  
 .tape.light {
-  background-color: var(--color-tape-light);
+  --shell: var(--color-tape-light);
 }
  
 .tape.featured {
-  width: 16.5rem;
-  height: 10.3rem;
-  background: linear-gradient(140deg, rgb(143 211 255 / 0.28), rgb(22 34 54 / 0.92) 55%);
-  box-shadow: inset 0 0 0 1px rgb(143 211 255 / 0.45), 0 0 2rem rgb(143 211 255 / 0.28);
+  --w: 16.5rem;
+  --h: 10.3rem;
+  --d: 1.6rem;
+  --shell: rgb(22 34 54);
 }
  
 .tape:hover,
 .tape:focus-visible {
-  transform: translateY(-0.3rem);
+  --lift: 6rem;
+  --turn: 0.2;
 }
  
 .tape:focus-visible {
+  outline: none;
+}
+ 
+.tape:focus-visible .tape-front {
   outline: 2px solid var(--color-text);
   outline-offset: 4px;
 }
+
+.tape-face {
+  position: absolute;
+  background-color: var(--shell);
+  backface-visibility: hidden;
+}
+ 
+.tape-front,
+.tape-back {
+  inset: 0;
+  border-radius: 0.45rem;
+}
+ 
+.tape-front {
+  transform: translateZ(calc(var(--d) / 2));
+}
+ 
+.tape-back {
+  transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
+  filter: brightness(0.8);
+}
+ 
+.tape-top,
+.tape-bottom {
+  left: 0.45rem;
+  right: 0.45rem;
+  top: calc(50% - var(--d) / 2);
+  height: var(--d);
+}
+ 
+.tape-top {
+  transform: rotateX(90deg) translateZ(calc(var(--h) / 2));
+  filter: brightness(1.3);
+}
+ 
+.tape-bottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--h) / 2));
+  filter: brightness(0.6);
+}
+ 
+.tape-left,
+.tape-right {
+  top: 0.45rem;
+  bottom: 0.45rem;
+  left: calc(50% - var(--d) / 2);
+  width: var(--d);
+  filter: brightness(0.75);
+}
+ 
+.tape-left {
+  transform: rotateY(-90deg) translateZ(calc(var(--w) / 2));
+}
+ 
+.tape-right {
+  transform: rotateY(90deg) translateZ(calc(var(--w) / 2));
+}
+ 
+.tape.featured .tape-front {
+  background: linear-gradient(140deg, rgb(143 211 255 / 0.28), rgb(22 34 54 / 0.92) 55%);
+  box-shadow: inset 0 0 0 1px rgb(143 211 255 / 0.45), 0 0 2rem rgb(143 211 255 / 0.28);
+}
+
  
 .tape-label {
   position: absolute;
@@ -1395,6 +1505,9 @@ figcaption {
 }
 
 @media (max-width: 1000px) {
+  html {
+    scroll-padding-top: 8rem;
+  }
   .black-shores {
     grid-template-columns: minmax(0, 1fr);
     align-content: center;
@@ -1441,16 +1554,37 @@ figcaption {
   }
  
   .black-shores.is-open .bs-stage {
-    min-height: 0;
-    gap: var(--space-4);
-    padding-top: var(--space-8);
+    height: auto;
+    margin-top: var(--space-8);
+    perspective: 40rem;
+  }
+
+  .bs-world {
+    position: static;
+    transform: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-5) var(--space-3);
+
   }
  
   .tape,
   .tape.featured {
-    width: min(11rem, calc(50% - var(--space-2)));
-    height: auto;
-    aspect-ratio: 1.6;
+    --w: 8.25rem;
+    --h: 5.15rem;
+    --d: 1rem;
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: translateZ(var(--lift)) rotateX(14deg) rotateY(-16deg);
+   }
+
+  .tape:hover,
+  .tape:focus-visible {
+    --lift: 1.5rem;
+  }
+
   }
  
   .tape-label {
@@ -1475,6 +1609,6 @@ figcaption {
     width: 1.1rem;
     height: 1.1rem;
   }
-}
+
 
 
