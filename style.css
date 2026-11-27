@@ -1186,6 +1186,7 @@ figcaption {
 
 .black-shores {
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(14rem, 1fr) minmax(0, 3fr);
   align-items: end;
@@ -1230,6 +1231,13 @@ figcaption {
 .black-shores.is-open {
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
+  overflow: clip;
+  background: 
+    radial-gradient(ellipse 34% 30% at 16% 30%, rgb(120 92 210 / 0.26), transparent 70%),
+    radial-gradient(ellipse 30% 26% at 86% 64%, rgb(143 211 255 / 0.2), transparent 70%),
+    radial-gradient(ellipse 22% 16% at 64% 14%, rgb(212 176 106 / 0.12), transparent 70%),
+    radial-gradient(ellipse 22% 20% at 30% 86%, rgb(70 120 200 / 0.16), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 50% 52%, rgb(22 36 64 / 0.75), transparent 85%), var(--color-bg);
 }
  
 .black-shores.is-open .bs-close {
@@ -1247,6 +1255,54 @@ figcaption {
   margin-top: var(--space-7);
   perspective: 70rem;
  }
+
+.black-shores.is-open::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgb(255 255 255 / 0.75) 0 0.6px, transparent 1.3px),
+    radial-gradient(circle at 47% 63%, rgb(255 255 255 / 0.6) 0 0.6px, transparent 1.3px),
+    radial-gradient(circle at 78% 34%, rgb(232 226 212 / 0.7) 0 0.6px, transparent 1.3px),
+    radial-gradient(circle at 31% 88%, rgb(255 255 255 / 0.5) 0 0.6px, transparent 1.3px),
+    radial-gradient(circle at 66% 9%, rgb(200 230 255 / 0.8) 0 0.9px, transparent 1.6px),
+    radial-gradient(circle at 89% 77%, rgb(255 255 255 / 0.6) 0 0.9px, transparent 1.6px),
+    radial-gradient(circle at 22% 52%, rgb(255 240 210 / 0.8) 0 0.9px, transparent 1.6px);
+  background-size:
+    173px 151px, 173px 151px, 173px 151px, 173px 151px,
+    293px 257px, 293px 257px,
+    419px 371px;
+}
+
+.bs-stars {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8% 26%, #fff 0 1.2px, rgb(143 211 255 / 0.5) 2px, transparent 5px),
+    radial-gradient(circle at 93% 18%, #fff 0 1.2px, rgb(255 230 190 / 0.5) 2px, transparent 5px),
+    radial-gradient(circle at 71% 64%, #fff 0 1.2px, rgb(143 211 255 / 0.5) 2px, transparent 5px),
+    radial-gradient(circle at 18% 76%, #fff 0 1px, rgb(255 255 255 / 0.4) 2px, transparent 4px),
+    radial-gradient(circle at 57% 9%, #fff 0 1px, rgb(255 255 255 / 0.4) 2px, transparent 4px);
+  animation: twinkle 4.2s ease-in-out infinite alternate;
+}
+
+.black-shores.is-open .bs-stars {
+  display: block;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .bs-world {
   --depth: 0rem;
@@ -1271,8 +1327,58 @@ figcaption {
   }
 }
 
-
+.bs-orbits {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
  
+.bs-orbit {
+  position: absolute;
+  left: calc(50% - 31rem);
+  top: calc(50% - 31rem);
+  width: 62rem;
+  height: 62rem;
+  border: 1px dashed rgb(232 226 212 / 0.22);
+  border-radius: 50%;
+  transform: rotateX(74deg);
+  animation: orbit-spin 45s linear infinite;
+}
+
+.bs-orbit:nth-child(2) {
+  left: calc(50% - 22rem);
+  top: calc(50% - 22rem);
+  width: 44rem;
+  height: 44rem;
+  border: 1px solid rgb(143 211 255 / 0.2);
+  transform: rotateX(70deg) rotateY(-14deg);
+  animation: none;
+}
+
+.bs-orbit:nth-child(3) {
+  left: calc(50% - 42rem);
+  top: calc(50% - 42rem);
+  width: 84rem;
+  height: 84rem;
+  border: 1px solid rgb(232 226 212 / 0.07);
+  transform: rotateX(78deg) rotateY(8deg);
+  animation: none;
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotateX(74deg) rotateZ(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-orbit,
+  .bs-stars {
+    animation: none;
+  }
+}
+
 .black-shores.is-open .bs-bars {
   --bar-h: 3.5rem;
   justify-self: center;
@@ -1379,8 +1485,35 @@ figcaption {
  
 .tape-front {
   transform: translateZ(calc(var(--d) / 2));
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.07), transparent 45%);
+}
+
+.tape-front::before {
+  content: "";
+  position: absolute;
+  inset: 0.4rem;
+  background:
+    radial-gradient(circle at 0 0, rgb(255 255 255 / 0.35) 0 0.12rem, rgb(0 0 0 / 0.35) 0.13rem 0.18rem, transparent 0.19rem),
+    radial-gradient(circle at 100% 0, rgb(255 255 255 / 0.35) 0 0.12rem, rgb(0 0 0 / 0.35) 0.13rem 0.18rem, transparent 0.19rem),
+    radial-gradient(circle at 0 100%, rgb(255 255 255 / 0.35) 0 0.12rem, rgb(0 0 0 / 0.35) 0.13rem 0.18rem, transparent 0.19rem),
+    radial-gradient(circle at 100% 100%, rgb(255 255 255 / 0.35) 0 0.12rem, rgb(0 0 0 / 0.35) 0.13rem 0.18rem, transparent 0.19rem);
 }
  
+.tape-front::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 0;
+  height: 13%;
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+  background:
+    radial-gradient(circle, rgb(0 0 0 / 0.55) 0 0.14rem, transparent 0.16rem) 30% 55% / 0.5rem 0.5rem no-repeat,
+    radial-gradient(circle, rgb(0 0 0 / 0.55) 0 0.14rem, transparent 0.16rem) 70% 55% / 0.5rem 0.5rem no-repeat,
+    rgb(255 255 255 / 0.08);
+}
+
+
 .tape-back {
   transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
   filter: brightness(0.8);
@@ -1429,14 +1562,17 @@ figcaption {
  
 .tape-label {
   position: absolute;
-  top: 0.7rem;
-  left: 0.75rem;
-  right: 0.75rem;
-  height: 50%;
-  padding: 0.45rem 0.6rem 0;
-  border-bottom: 2px solid var(--color-accent);
-  border-radius: 3px;
+  top: 0.5rem;
+  left: 0.6rem;
+  right: 0.6rem;
+  height: 55%;
+  padding: 0.4rem 0.55rem 0;
+  border-bottom: 3px solid var(--color-accent);
+  border-radius: 0.25rem;
   background-color: var(--color-text);
+  background-image: repeating-linear-gradient(to bottom, transparent 0 1.15rem, rgb(0 0 0 / 0.12) 1.15rem calc(1.15rem + 1px));
+  background-position: 0 2.65rem;
+  background-repeat: no-repeat;
   color: var(--color-bg);
   text-align: left;
   overflow: hidden;
@@ -1451,6 +1587,31 @@ figcaption {
   border-bottom-color: var(--color-ice);
 }
  
+.tape-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tape-side {
+  display: grid;
+  place-items: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 2px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tape.light .tape-side {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
 .tape-code {
   display: block;
   font-family: var(--font-quote);
@@ -1462,36 +1623,53 @@ figcaption {
  
 .tape-name {
   display: block;
-  margin-top: 0.15rem;
+  margin-top: 0.3rem;
   font-family: var(--font-heading);
-  font-size: var(--text-base);
+  font-size: 1.4rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
+  text-wrap: balance;
 }
- 
+
+.tape.featured .tape-name {
+  font-size: 1.6rem;
+}
+
 .tape-window {
   position: absolute;
-  bottom: 0.75rem;
-  left: 25%;
-  right: 25%;
-  height: 32%;
+  bottom: 15%;
+  left: 22%;
+  right: 22%;
+  height: 25%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.55rem;
-  border-radius: 1.4rem;
+  padding: 0 0.6rem;
+  border-radius: 0.35rem;
   background-color: var(--color-bg);
+  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.08);
+}
+
+.tape-reel:first-child {
+  box-shadow: 0 0 0 0.35rem #2a1d16, 0 0 0 calc(0.35rem + 1px) rgb(255 255 255 / 0.08);
 }
  
+.tape-reel:last-child {
+  box-shadow: 0 0 0 0.15rem #2a1d16;
+}
+
+
 .tape-reel {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.25rem;
+  height: 1.25rem;
   border: 2px solid var(--color-muted);
   border-radius: 50%;
   background: repeating-conic-gradient(var(--color-muted) 0deg 14deg, transparent 14deg 60deg);
 }
- 
+
+
 .tape.featured .tape-reel {
   border-color: var(--color-ice);
   background: repeating-conic-gradient(var(--color-ice) 0deg 14deg, transparent 14deg 60deg);
@@ -1578,37 +1756,47 @@ figcaption {
     left: auto;
     top: auto;
     transform: translateZ(var(--lift)) rotateX(14deg) rotateY(-16deg);
-   }
+  }
 
   .tape:hover,
   .tape:focus-visible {
     --lift: 1.5rem;
   }
 
-  }
+  
  
   .tape-label {
     height: auto;
-    padding-bottom: 0.4rem;
+    padding: 0.35rem 0.45rem 0.4rem;
+    background-image: none;
   }
  
-  .tape-code {
+  .tape-head {
     display: none;
   }
  
-  .tape-name {
-    font-size: var(--text-sm);
+  .tape-name,
+  .tape.featured .tape-name {
+    margin-top: 0;
+    font-size: 0.95rem;
+
   }
  
   .tape-window {
-    bottom: 0.5rem;
-    height: 28%;
+    bottom: 16%;
+    height: 26%;
   }
  
   .tape-reel {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 0.9rem;
+    height: 0.9rem;
   }
-
-
+  .tape-reel:first-child {
+    box-shadow: 0 0 0 0.22rem #2a1d16;
+  }
+ 
+  .bs-orbits {
+    display: none;
+  }
+}
 

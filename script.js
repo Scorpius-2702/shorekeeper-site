@@ -581,6 +581,15 @@ function buildTape(entry, sector, index) {
   name.textContent = entry.name;
  
   label.append(code, name);
+  const head = document.createElement('span');
+  head.className = 'tape-head';
+  const side = document.createElement('span');
+  side.className = 'tape-side';
+  side.textContent = 'A';
+  head.append(side, code);
+ 
+  label.append(head, name);
+
  
   const tapeWindow = document.createElement('span');
   tapeWindow.className = 'tape-window';

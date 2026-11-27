@@ -14,16 +14,14 @@
 
 ## Tiến độ (anh cập nhật khi xong mỗi bài)
 
-- Đã xong: Bài 30, sáu thẻ kỹ năng dựng từ `skills.json`.
-- Chưa gõ: Bài 31 (băng chuyền ở màn Gallery) và Bài 32 (chữ tô vàng, danh sách và hộp chú thích). File `terms.json` của Bài 32 đã có sẵn.
-- Đã xong: Bài 1 tới Bài 36. Bài 35–36 dựng màn Black Shores: bốn thanh từ `blackshores.json` (Members, Facility, Areas, Timeline), mở một khu thì hiện các băng phẳng.
-- Bài tiếp theo: Bài 37 (băng dữ liệu dựng bằng CSS 3D).
+- Đã xong: Bài 1 tới Bài 37. Bài 35–37 dựng màn Black Shores: bốn thanh từ `blackshores.json` (Members, Facility, Areas, Timeline); mở một khu thì các băng dữ liệu hiện ra dưới dạng hộp CSS 3D.
+- Bài tiếp theo: Bài 38 (các băng trôi và cả không gian nghiêng theo chuột, bằng `requestAnimationFrame`).
+
 
 ## Quy tắc khi sửa code
 
 1. **Không viết trước bài học.** Nếu việc anh nhờ thuộc một bài sau, nói rõ là bài nào và hỏi anh trước khi làm. Các bài đã lên kế hoạch:
-   - Bài 37: băng dữ liệu dựng bằng CSS 3D; băng nổi bật (`featured`).
-   - Bài 38: vòng lặp chuyển động bằng `requestAnimationFrame` cho các băng.
+   - Bài 38: vòng lặp chuyển động bằng `requestAnimationFrame` cho các băng; băng trang trí.
    - Bài 39: lớp HUD nhấp nháy khi rê chuột vào một băng.
    - Bài 40: trang đọc một băng, danh sách mục con.
    - Bài 41: chuyển cảnh mở băng kiểu B (khung HUD nở thành bảng đọc).
@@ -31,7 +29,8 @@
    - Bài 45: hiệu ứng bướm cho hộp chú thích.
    - Bài 50: chuyển cảnh bằng mặt nạ.
 
-2. **Giữ nguyên các tên mà bài học dùng:** class, id, tên hàm (`twoDigits`, `updateCurrentLink`, `buildCard`, `showSkill`, `openSkill`, `loadSkills`) và tên thuộc tính trong JSON (`type`, `name`, `image`, `short`, `what`, `related`, `moves`, `video`, `poster`). Các bài sau dựa vào những tên này.
+
+2. **Giữ nguyên các tên mà bài học dùng:** class, id, tên hàm (`twoDigits`, `updateCurrentLink`, `buildCard`, `showSkill`, `openSkill`, `closeSkill`, `loadSkills`, `buildBar`, `loadSectors`, `buildTape`, `openSector`, `closeSector`, `frontSlot`, `placeTape`, `fillWorld`), tên biến (`sectorData`, `bars`, `bsWorld`, `backSlots`), tên biến CSS (`--bar-h`, `--w`, `--h`, `--d`, `--shell`, `--x`, `--y`, `--z`, `--rx`, `--ry`, `--rz`, `--lift`, `--turn`, `--depth`) và tên thuộc tính trong JSON (`skills.json`: `type`, `name`, `image`, `short`, `what`, `related`, `moves`, `video`, `poster`; `blackshores.json`: `code`, `label`, `art`, `entries`, `name`, `meta`, `featured`, `look`, `image`, `sections`, `title`, `text`). Các bài sau dựa vào những tên này.
 3. **Không đổi cấu trúc.** Giữ `index.html`, `style.css`, `script.js`, `skills.json`, `terms.json` ở thư mục gốc, cùng ba thư mục `images/`, `videos/`, `fonts/`. Không thêm thư viện, framework, npm, công cụ build hay TypeScript.
 4. **Sửa ít nhất có thể.** Không định dạng lại cả file, không đổi kiểu viết của anh (ví dụ `class = "x"` có dấu cách vẫn là HTML đúng), không sắp xếp lại các khối CSS.
 5. **Comment theo kiểu của anh.** Trong HTML, anh dùng comment ngắn bằng tiếng Anh, dạng `<!--Stage 3: Replicate Skills page-->`; `script.js` không có comment. Không tự thêm comment, trừ khi anh nhờ.
