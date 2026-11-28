@@ -580,7 +580,6 @@ function buildTape(entry, sector, index) {
   name.className = 'tape-name';
   name.textContent = entry.name;
  
-  label.append(code, name);
   const head = document.createElement('span');
   head.className = 'tape-head';
   const side = document.createElement('span');
@@ -649,6 +648,57 @@ function fillWorld(sector) {
   }
 }
 
+const tilt = {x : 0, y : 0, targetX: 0, targetY: 0};
+let driftFrame = 0;
+bsSection.addEventListener('pointermove', (event) => {
+  if (event.pointerType !== 'mouse') {
+    return;
+  }
+  const box = bsSection.getBoundingClientRect();
+  const px = (event.clientX - box.left) / box.width - 0.5;
+  const py = (event.clientY - box.top) / box.height - 0.5;
+  tilt.targetX = py * 6;
+  tilt.targetY = -px * 8;
+});
+ 
+bsSection.addEventListener('pointerleave', () => {
+  tilt.targetX = 0;
+  tilt.targetY = 0;
+});
+ 
+function drift(time) {
+  const seconds = time / 1000;
+  const tapes = bsWorld.querySelectorAll('.tape');
+  for (let i = 0; i < tapes.length; i++) {
+    const dx = Math.cos(seconds * 0.6 + i * 2.3) * 4;
+    const dy = Math.sin(seconds * 0.9 + i * 1.7) * 8;
+    tapes[i].style.translate = `${dx.toFixed(2)}px ${dy.toFixed(2)}px`;
+  }
+  tilt.x += (tilt.targetX - tilt.x) * 0.08;
+  tilt.y += (tilt.targetY - tilt.y) * 0.08;
+  bsStage.style.setProperty('--tilt-x', `${tilt.x.toFixed(3)}deg`);
+  bsStage.style.setProperty('--tilt-y', `${tilt.y.toFixed(3)}deg`);
+  driftFrame = requestAnimationFrame(drift);
+}
+ 
+function startDrift() {
+  if (reduceMotion || driftFrame !== 0) {
+    return;
+  }
+  driftFrame = requestAnimationFrame(drift);
+}
+ 
+function stopDrift() {
+  cancelAnimationFrame(driftFrame);
+  driftFrame = 0;
+  tilt.x = 0;
+  tilt.y = 0;
+  tilt.targetX = 0;
+  tilt.targetY = 0;
+  bsStage.style.removeProperty('--tilt-x');
+  bsStage.style.removeProperty('--tilt-y');
+}
+
 
 function openSector(index) {
   const sector = sectorData[index];
@@ -661,6 +711,7 @@ function openSector(index) {
     }
   }
   fillWorld(sector);
+  startDrift();
   bsSection.classList.add('is-open');
   bsSection.scrollIntoView();
   const firstTape = bsStage.querySelector('.tape');
@@ -677,6 +728,7 @@ function closeSector() {
   bar.removeAttribute('aria-current');
   bsSection.classList.remove('is-open');
   bsWorld.textContent = '';
+  stopDrift();
   currentSector = -1;
   bsSection.scrollIntoView();
   bar.focus();
